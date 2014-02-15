@@ -36,9 +36,13 @@ try {
 
 	$q	="	select		A.nomor_induk "
 		."	,			A.nama_lengkap "
+		."	,			B.nmr_reg_gol		as no_reg"
+		."	,			concat (C.uu_kejahatan, ' - ', C.pasal_utama) as uu "
 		."	from		identitas				A "
 		."	,			perkara					B "
+		."	,			kejahatan				C "
 		."	where		A.nomor_induk			= B.nomor_induk "
+		."	and			B.id_perkara			= C.id_perkara "
 		."	and			A.is_deleted			= 0 "
 		."	and			B.id_status				= 'STA' "
 		."	and			B.id_sub_status			= 'SSA1' "

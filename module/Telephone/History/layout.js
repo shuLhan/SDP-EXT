@@ -20,18 +20,20 @@ function JxTelephoneHistory ()
 		,	"pin"
 		,	"status"
 		,	"update_date"
+		,	"no_reg"
 		]
 	});
 
 	this.panel			= Ext.create ("Jx.GridPaging", {
 		id				:this.id
+	,	title			:"Riwayat Telepon"
 	,	store			:this.store
 	,	buttonBarList	:[]
 	,	columns			:
 		[{
-			header		:"Nomor Induk"
-		,	dataIndex	:"nomor_induk"
-		,	width		:140
+			header		:"No. Reg"
+		,	dataIndex	:"no_reg"
+		,	width		:160
 		},{
 			header		:"Nama Lengkap"
 		,	dataIndex	:"nama_lengkap"
@@ -69,7 +71,6 @@ function JxTelephoneHistory ()
 
 	this.doRefresh = function (perm)
 	{
-		
 	}
 }
 

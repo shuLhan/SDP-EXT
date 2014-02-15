@@ -60,12 +60,14 @@
 }
 
 #MainHeaderText {
-	padding		:6px 10px 10px 40px;
-	background	:url(../../images/logo.png) no-repeat 10px 8px;
+	padding		:6px 10px 10px 130px;
+	background	:url(../../images/logo.png) no-repeat 10px 4px;
+	background-size:auto 80%;
 	color		:white;
 	font-size	:24px;
 	font-weight	:bold;
 	text-shadow	:0 1px 0 #4e691f;
+	z-index		:auto;
 }
 
 #MainFooter {

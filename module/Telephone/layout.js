@@ -21,6 +21,7 @@ function JxTelephone ()
 		,	"pin"
 		,	"status"
 		,	"update_date"
+		,	"no_reg"
 		]
 	});
 	
@@ -31,6 +32,8 @@ function JxTelephone ()
 		[
 			"nomor_induk"
 		,	"nama_lengkap"
+		,	"no_reg"
+		,	"uu"
 		]
 	});
 	
@@ -46,6 +49,14 @@ function JxTelephone ()
 		{
 			loadingText	:"Memuat ..."
 		,	emptyText	:"Data tidak ditemukan."
+		,	getInnerTpl	:function ()
+			{
+				return	'<b>{nama_lengkap}</b><br/>'
+						+'<ul>'
+						+'<li>{no_reg}<br/></li>'
+						+'<li>{uu}</li>'
+						+'</ul>';
+			}
 		}
 	});
 
@@ -92,6 +103,10 @@ function JxTelephone ()
 		}]
 	,	columns		:
 		[{
+			header		:"No. Reg"
+		,	dataIndex	:"no_reg"
+		,	width		:160
+		},{
 			header		:"nomor_induk"
 		,	dataIndex	:"nomor_induk"
 		,	hidden		:true

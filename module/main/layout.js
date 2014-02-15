@@ -278,7 +278,7 @@ function JxMain ()
 	this.header	= Ext.create ("Ext.container.Container", {
 			id			:this.headerId
 		,	region		:"north"
-		,	height		:45
+		,	height		:50
 		,	layout		:
 			{
 				type		:"hbox"
