@@ -14,10 +14,7 @@
 .user				{ background-image: url("../../images/icons/user.png") !important; }
 .group				{ background-image: url("../../images/icons/group.png") !important; }
 .menu				{ background-image: url("../../images/icons/menu.png") !important; }
-.telephone			{ background-image: url("../../images/icons/telephone.png") !important; }
-.manage				{ background-image: url("../../images/icons/manage.png") !important; }
-.history			{ background-image: url("../../images/icons/history.png") !important; }
-.wbp				{ background-image: url("../../images/icons/wbp.png") !important; }
+
 /*
 	Button's icons
 */
@@ -29,7 +26,7 @@
 .cancel					{ background-image: url("../../images/icons/cancel.png") !important; }
 .add-multiple			{ background-image: url("../../images/icons/add-multiple.png") !important; }
 .delete-row				{ background-image: url("../../images/icons/delete-row.png") !important; }
-.search					{ background-image: url("../../images/icons/search.png") !important; }
+
 /*
 	Form's icons
 */

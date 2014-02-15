@@ -11,8 +11,8 @@ require_once "../../json_begin.php";
 try {
 	// Get total row
 	$q	="	select		COUNT(A.nomor_induk)	as total "
-		."	from		identitas				A "
-		."	,			perkara					B "
+		."	from		rutanbandung_db.identitas	as A "
+		."	,			rutanbandung_db.perkara		as B "
 		."	where		A.nomor_induk			= B.nomor_induk "
 		."	and			A.is_deleted			= 0 "
 		."	and			B.id_status				= 'STA' "
@@ -38,9 +38,9 @@ try {
 		."	,			A.nama_lengkap "
 		."	,			B.nmr_reg_gol		as no_reg"
 		."	,			concat (C.uu_kejahatan, ' - ', C.pasal_utama) as uu "
-		."	from		identitas				A "
-		."	,			perkara					B "
-		."	,			kejahatan				C "
+		."	from		rutanbandung_db.identitas	as A "
+		."	,			rutanbandung_db.perkara		as B "
+		."	,			rutanbandung_db.kejahatan	as C "
 		."	where		A.nomor_induk			= B.nomor_induk "
 		."	and			B.id_perkara			= C.id_perkara "
 		."	and			A.is_deleted			= 0 "

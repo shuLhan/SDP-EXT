@@ -1,0 +1,11 @@
+/*
+Copyright 2014 - Mhd Sulhan
+Authors:
+  - mhd.sulhan (m.shulhan@gmail.com)
+*/
+.telephone			{ background-image: url("../../images/icons/app/telephone.png") !important; }
+.telephone_manage	{ background-image: url("../../images/icons/app/telephone_manage.png") !important; }
+.telephone_history	{ background-image: url("../../images/icons/app/telephone_history.png") !important; }
+
+.wbp			{ background-image: url("../../images/icons/app/wbp.png") !important; }
+.wbp_search		{ background-image: url("../../images/icons/app/wbp_search.png") !important; }

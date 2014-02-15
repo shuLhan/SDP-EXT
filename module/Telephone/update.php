@@ -10,7 +10,7 @@ require_once "../json_begin.php";
 
 try {
 	if ($_POST["subaction"] === "change") {
-		$q	="	update	sdpext_telephone"
+		$q	="	update	telephone"
 			."	set		status		= 0"
 			."	where	nomor_induk	= ?"
 			."	and		update_date	= ?";
@@ -23,7 +23,7 @@ try {
 		$ps->closeCursor ();
 		
 		// insert new data
-		$q	="	insert into sdpext_telephone ("
+		$q	="	insert into telephone ("
 			."		nomor_induk "
 			."	,	sn "
 			."	,	pin "
@@ -41,7 +41,7 @@ try {
 		$ps->execute ();
 		$ps->closeCursor ();
 	} else {
-		$q	="	update	sdpext_telephone"
+		$q	="	update	telephone"
 			."	set		sn			= ?"
 			."	,		pin			= ?"
 			."	,		status		= ?"

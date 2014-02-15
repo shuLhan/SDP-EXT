@@ -9,7 +9,7 @@ require_once "../json_begin.php";
 
 try {
 	// inactivate all previous data
-	$q	="	update	sdpext_telephone"
+	$q	="	update	jaring.telephone"
 		."	set		status = 0"
 		."	where	nomor_induk = ?";
 
@@ -20,7 +20,7 @@ try {
 	$ps->closeCursor ();
 
 	// insert new data
-	$q	="	insert into sdpext_telephone ("
+	$q	="	insert into jaring.telephone ("
 		."		nomor_induk "
 		."	,	sn "
 		."	,	pin "

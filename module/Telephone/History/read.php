@@ -9,8 +9,8 @@ require_once "../../json_begin.php";
 try {
 	// Get total row
 	$q	="	select		COUNT(A.nomor_induk)	as total "
-		."	from		sdpext_telephone		A "
-		."	,			identitas				B "
+		."	from		telephone					as A "
+		."	,			rutanbandung_db.identitas	as B "
 		."	where		A.nomor_induk			= B.nomor_induk "
 		."	and			B.is_deleted			= 0 "
 		."	and			( "
@@ -41,9 +41,9 @@ try {
 		."	,			A.status "
 		."	,			A.update_date "
 		."	,			C.nmr_reg_gol		as no_reg "
-		."	from		sdpext_telephone	A "
-		."	,			identitas			B "
-		."	,			perkara				C "
+		."	from		telephone					as A "
+		."	,			rutanbandung_db.identitas	as B "
+		."	,			rutanbandung_db.perkara		as C "
 		."	where		A.nomor_induk		= B.nomor_induk "
 		."	and			B.nomor_induk		= C.nomor_induk "
 		."	and			B.is_deleted		= 0 "

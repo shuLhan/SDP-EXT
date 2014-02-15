@@ -7,7 +7,7 @@
 require_once "../json_begin.php";
 
 try {
-	$q		="	delete from sdpext_telephone"
+	$q		="	delete from telephone"
 			."	where	nomor_induk = ?"
 			."	and		sn			= ?"
 			."	and		pin			= ?"
