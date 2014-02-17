@@ -109,7 +109,7 @@ function JxLogin ()
 				Jx.msg.error (action.result.data);
 			}
 		});
-	}
+	};
 }
 
 Ext.onReady (function ()
