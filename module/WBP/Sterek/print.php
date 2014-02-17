@@ -21,7 +21,7 @@ foreach ($wbp as $w) {
 	echo "<div class='sterek'>"
 			."<div class='empty' ></div>"
 			."<div class='foto_frame'>"
-				."<img class='foto' src='/sdp/".$w["foto_depan"]."' width='75' height='94'/>"
+				."<img class='foto' src='image_crop.php?image_path=/sdp/".$w["foto_depan"]."' width='75' height='94'/>"
 			."</div>"
 			."<div class='info'>"
 				."<div>"

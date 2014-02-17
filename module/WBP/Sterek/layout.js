@@ -50,7 +50,7 @@ function JxWBPSterek ()
 	,	rowBodyTpl		:
 		[
 			"<table align='left' style='font-size:10px; border:1px solid;'>"
-		+	"<td rowspan='9'><img src='/sdp/{foto_depan}' width='auto' height='100'/></td>"
+		+	"<td rowspan='9'><img src='"+ this.dir +"/image_crop.php?image_path=/sdp/{foto_depan}' width='auto' height='100'/></td>"
 		+	"<tr><th align='left'>NO. REG</th><td>:</td><td>{nmr_reg_gol}</td><tr>"
 		+	"<tr><th align='left'>PUTUSAN</th><td>:</td><td>{tahun_hukuman} THN {bulan_hukuman} BLN {hari_hukuman} HR</td></tr>"
 		+	"<tr><th align='left'>PERKARA</th><td>:</td><td>{perkara}</td></tr>"
