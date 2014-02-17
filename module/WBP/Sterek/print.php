@@ -27,7 +27,7 @@ foreach ($wbp as $w) {
 				."<div>"
 					."<div class='key'>NAMA</div>"
 					."<div class='sep'>:</div>"
-					."<div class='value'>".$w["nama_lengkap"]."</div>"
+					."<div class='value'>".substr ($w["nama_lengkap"], 0, 40)."</div>"
 				."</div>"
 				."<div>"
 					."<div class='key'>NO. REG</div>"
