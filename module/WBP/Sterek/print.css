@@ -1,0 +1,88 @@
+/*
+Copyright 2014 - Mhd Sulhan
+Authors:
+  - mhd.sulhan (m.shulhan@gmail.com)
+*/
+@media print, screen
+{
+	.no-print, .no-print * {
+		display: none !important;
+	}
+	
+	body {
+		color		:#000000;
+		background	:#ffffff;
+		font-size	:10pt;
+		font-family	:sans-serif;
+		width		:216mm;
+		max-width	:216mm;
+		margin		:1cm;
+		padding		:0;
+	}
+	.sterek {
+		border		:1px solid black;
+		overflow	:auto;
+		min-width	:16cm;
+		max-width	:16cm;
+		height		:2.5cm;
+		min-height	:2.5cm;
+		max-height	:2.5cm;
+		margin		:5mm 0mm 5mm 0mm;
+		padding		:0;
+		overflow	:hidden;
+		display		:block;
+		page-break-inside	:avoid;
+	}
+	.empty {
+		float		:left;
+		height		:inherit;
+		width		:2cm;
+		min-width	:2cm;
+		max-width	:2cm;
+	}
+	.foto_frame {
+		position	:static;
+		float		:left;
+		height		:2.5cm;
+		min-width	:2cm;
+		max-width	:2cm;
+		padding		:0;
+		margin		:0;
+	}
+	.foto {
+		width		:2cm;
+		height		:2.5cm;
+		min-width	:2cm;
+		max-width	:2cm;
+		min-height	:2.5cm;
+		max-height	:2.5cm;
+		position	:static;
+	}
+	.info {
+		border		:1px solid white;
+		margin		:6px 0px 0px 20px;
+		padding		:0px;
+		float		:left;
+	}
+	.key {
+		text-align	:left;
+		min-width	:2.5cm;
+		float		:left;
+		padding		:0px;
+		margin		:0px;
+		font-weight	:bold;
+	}
+	.sep {
+		text-align	:center;
+		width		:4px;
+		float		:left;
+		padding		:0px 4px 0px 4px;
+	}
+	.value {
+		text-align	:left;
+		display		:block;
+		overflow	:hidden;
+		padding		:0;
+		margin		:0;
+	}
+}
