@@ -1,11 +1,11 @@
 --
 -- Create group User and user 'SDP'
 --
-insert into _group (name, type) values ('User', 0);
+insert into jaring._group (name, type) values ('User', 0);
 
-insert into _user (name, realname, password) values ('sdp', 'SDP', 'c0a04af421d69791100e21c8d74b150c66b2fbc4a3e5a331a2412cf18ae2d16f');
+insert into jaring._user (name, realname, password) values ('sdp', 'SDP', 'c0a04af421d69791100e21c8d74b150c66b2fbc4a3e5a331a2412cf18ae2d16f');
 
-insert into _user_group (_user_id, _group_id) values (2, 2);
+insert into jaring._user_group (_user_id, _group_id) values (2, 2);
 
 INSERT INTO jaring._group_menu VALUES (2, 1, 1);
 INSERT INTO jaring._group_menu VALUES (2, 2, 0);

@@ -7,5 +7,6 @@ CREATE TABLE jaring.telephone (
 ,	status			tinyint			not null default 1
 ,	update_date		timestamp		not null default CURRENT_TIMESTAMP
 ,	update_user		int				not null
-,	CONSTRAINT update_user_user 
+,	CONSTRAINT _identitas_nomor_induk_fk	foreign key (nomor_induk) references rutanbandung_db.identitas (nomor_induk)
+,	CONSTRAINT _user_update_user_fk			foreign key (update_user) references jaring._user (id)
 );
