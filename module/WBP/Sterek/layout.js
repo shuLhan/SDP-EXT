@@ -165,7 +165,15 @@ function JxWBPSterek ()
 					}
 				}
 			}
-			,"->"]
+			,"->",
+			{
+				text	:"Hapus semua"
+			,	scope	:this
+			,	handler	:function (b)
+				{
+					this.storeSterek.removeAll ();
+				}
+			}]
 		}
 	,	columns			:
 		[{
