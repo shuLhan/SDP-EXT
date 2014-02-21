@@ -428,10 +428,10 @@ function JxMain ()
 		var tab, tbar;
 
 		Jx.showMask ();
-
 		if (b.id === this.contentHomeId) {
 			this.content.hide ();
 			this.contentHome.show ();
+			this.contentDashboard.hide ();
 			Jx.hideMask ();
 			return;
 		}
@@ -567,7 +567,14 @@ function JxMain ()
 					}
 				}
 
-				this.menu.setActiveTab (0);
+				switch (_g_content_type) {
+				case 0:
+					this.menu.setActiveTab (0);
+					break;
+				case 1:
+					this.menu.setActiveTab (0);
+					break;
+				}
 			}
 		});
 	};

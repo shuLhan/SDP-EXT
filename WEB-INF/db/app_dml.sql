@@ -22,7 +22,8 @@ INSERT INTO jaring._menu VALUES (10, 0, 0	, 'WBP'				, 'wbp'			, ''			, 'WBP'			
 INSERT INTO jaring._menu VALUES (11, 10, 3	, 'Pencarian WBP'	, 'wbp_search'	, 'WBP_Search'	, 'WBP_Search'	, '');
 INSERT INTO jaring._menu VALUES (12, 10, 3	, 'Sterek'			, 'wbp_sterek'	, 'WBP_Sterek'	, 'WBP_Sterek'	, '');
 
-INSERT INTO jaring._menu VALUES (20, 0, 3	, 'Pahan'			, 'pahan'		, ''			, 'Pahan'		, '');
+INSERT INTO jaring._menu VALUES (20, 0	, 0	, 'Pahan'			, 'pahan'			, ''				, 'Pahan'		, '');
+INSERT INTO jaring._menu VALUES (21, 20	, 3	, 'Pahan 10'		, 'pahan_manage'	, 'Pahan_Manage'	, 'Pahan_10'	, '');
 
 INSERT INTO jaring._group_menu VALUES (1, 3, 4);
 INSERT INTO jaring._group_menu VALUES (1, 4, 4);
@@ -31,6 +32,7 @@ INSERT INTO jaring._group_menu VALUES (1, 10, 4);
 INSERT INTO jaring._group_menu VALUES (1, 11, 4);
 INSERT INTO jaring._group_menu VALUES (1, 12, 4);
 INSERT INTO jaring._group_menu VALUES (1, 20, 4);
+INSERT INTO jaring._group_menu VALUES (1, 21, 4);
 
 INSERT INTO jaring._group_menu VALUES (2, 3, 4);
 INSERT INTO jaring._group_menu VALUES (2, 4, 4);
@@ -39,3 +41,4 @@ INSERT INTO jaring._group_menu VALUES (2, 10, 4);
 INSERT INTO jaring._group_menu VALUES (2, 11, 4);
 INSERT INTO jaring._group_menu VALUES (2, 12, 4);
 INSERT INTO jaring._group_menu VALUES (2, 20, 4);
+INSERT INTO jaring._group_menu VALUES (2, 21, 4);
