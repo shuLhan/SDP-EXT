@@ -42,3 +42,13 @@ INSERT INTO jaring._group_menu VALUES (2, 11, 4);
 INSERT INTO jaring._group_menu VALUES (2, 12, 4);
 INSERT INTO jaring._group_menu VALUES (2, 20, 4);
 INSERT INTO jaring._group_menu VALUES (2, 21, 4);
+
+INSERT INTO jaring.wilayah (default_1, default_2, nama) VALUES (1, 0, 'Jawa Barat');
+INSERT INTO jaring.wilayah (default_1, default_2, nama) VALUES (0, 1, 'Bandung');
+INSERT INTO jaring.wilayah (default_1, default_2, nama) VALUES (0, 0, 'Cimahi');
+INSERT INTO jaring.wilayah (default_1, default_2, nama) VALUES (0, 0, 'Jakarta');
+
+INSERT INTO jaring.penandatangan (kepala_text, jabatan, nama, nip) VALUES ('K E P A L A'		,''									,'JOKO PITOYO, Bc.IP., S.Sos'		,'19580202 198303 1 001');
+INSERT INTO jaring.penandatangan (kepala_text, jabatan, nama, nip) VALUES ('An. K E P A L A'	,'Kasie. Pelayanan Tahanan'			,'R. BUDIMAN P. KUSUMAH, SH., MH.'	,'19750223 199902 1 001');
+INSERT INTO jaring.penandatangan (kepala_text, jabatan, nama, nip) VALUES ('Plh. KEPALA'		,''									,'SUPARMAN, Amd.IP., SH., MH.'		,'19750604 199902 1 001');
+INSERT INTO jaring.penandatangan (kepala_text, jabatan, nama, nip) VALUES ('An. K E P A L A'	,'Kasubsie. Administrasi Perawatan'	,'M. IRVAN MUAYAT, Amd.IP., SH.'	,'19790223 200012 1 001');

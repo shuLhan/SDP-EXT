@@ -1,0 +1,175 @@
+/*
+Copyright 2014 - Mhd Sulhan
+Authors:
+  - mhd.sulhan (m.shulhan@gmail.com)
+*/
+
+@media print, screen
+{
+	/* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
+	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+
+	.no-print, .no-print * {
+		display: none !important;
+	}
+	body {
+		border		:1px solid black;
+		color		:#000000;
+		background	:#ffffff;
+		font-size	:12pt;
+		font-family	:"Times New Roman", serif;
+		width		:330mm;
+		margin		:1cm 2cm;
+		padding		:0;
+	}
+	ol {
+		list-style-type: decimal;
+	}
+	p.text {
+		margin	:2em 0em 1em 0em;
+	}
+	.clear {
+		clear	: both;
+	}
+	.header {
+		border		:1px solid white;
+	}
+	.header div:nth-child(1) {
+		width		:2.9cm;
+		clear		:both;
+		float		:left;
+		border		:1px solid white;
+	}
+	.header div:nth-child(2) {
+		width		:0.6cm;
+		text-align	:center;
+		float		:left;
+		border		:1px solid white;
+	}
+	.header div:nth-child(3) {
+		width		:9.23cm;
+		float		:left;
+		border		:1px solid white;
+	}
+	.header div:nth-child(4) {
+		width		:7.5cm;
+		float		:left;
+		font-weight	:bold;
+		text-align	:right;
+		border		:1px solid white;
+	}
+	.header div:nth-child(5) {
+		width		:9cm;
+		float		:left;
+		font-weight	:bold;
+		padding		:0px 4px;
+		border		:1px solid white;
+	}
+	.wbp_header {
+		overflow			:hidden;
+		height				:4em;
+		font-weight			:bold;
+		float				:left;
+		display				:table;
+		font-size			:12pt;
+		clear				:both;
+		page-break-inside	:avoid;
+	}
+	.wbp_data {
+		overflow			:hidden;
+		height				:6em;
+		clear				:both;
+		page-break-inside	:avoid;
+	}
+	.wbp_data > div, .wbp_header > div {
+		float		:left;
+		display		:table;
+		overflow	:hidden;
+	}
+	 .wbp_header > div > div {
+ 		display			:table-cell;
+		vertical-align	:middle;
+		text-align		:center;
+		border			:1px solid black;
+	 }
+	.wbp_data > div > div {
+		display			:table-cell;
+		vertical-align	:middle;
+		text-align		:center;
+		border-left		:1px solid black;
+		border-right	:1px solid black;
+		border-bottom	:1px solid black;
+	}
+	.wbp_data div:nth-child(1), .wbp_header div:nth-child(1) {
+		width		:1cm;
+		height		:100%;
+	}
+	.wbp_data div:nth-child(2), .wbp_header div:nth-child(2) {
+		width		:6.5cm;
+		height		:100%;
+	}
+	.wbp_header div:nth-child(3) {
+		width		:6.5cm;
+		height		:100%;
+		font-size	:12pt;
+	}
+	.wbp_data div:nth-child(3) {
+		width		:6.5cm;
+		height		:100%;
+		font-size	:10pt;
+	}
+	.wbp_header div:nth-child(4) {
+		width		:6cm;
+		height		:100%;
+		font-size	:12pt;
+	}
+	.wbp_data div:nth-child(4) {
+		width		:6cm;
+		height		:100%;
+		font-size	:10pt;
+	}
+	.wbp_data div:nth-child(5), .wbp_header div:nth-child(5) {
+		width		:3cm;
+		height		:100%;
+	}
+	.wbp_data div:nth-child(6), .wbp_header div:nth-child(6) {
+		width		:3cm;
+		height		:100%;
+	}
+	.wbp_data div:nth-child(7), .wbp_header div:nth-child(7) {
+		width		:4cm;
+		height		:100%;
+	}
+	.footer {
+		page-break-inside	:avoid;
+	}
+	.signature {
+		page-break-inside	:avoid;
+	}
+	.signature > div {
+		float		:left;
+		text-align	:center;
+		border		:1px solid white;
+	}
+	.signature div:nth-child(1) {
+		width		:21cm;
+		clear		:both;
+	}
+	.signature div:nth-child(2) {
+		width		:8.64cm;
+	}
+	.sig {
+		height		:2cm;
+	}
+	.sig_name {
+		text-decoration	:underline;
+		font-weight		:bold;
+	}
+	.sig_nip {
+		font-weight: bold;
+	}
+	.attachment {
+		list-style-type: decimal;
+		margin-left: 2em;
+	}
+}
