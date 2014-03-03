@@ -35,6 +35,23 @@ function JxPahan10 ()
 		,	"tgl_ekspirasi"
 		,	"nama_jaksa_utama"
 		]
+
+	,	doFilterAsalTahanan :function (cls, r, id)
+		{
+			if (cls.rgAsalTahanan.isDisabled ()) {
+				return true;
+			}
+
+			var no_srt	= r.get ("nmr_srt_thn");
+			var asal	= cls.rgAsalTahanan.getValue ().asal_tahanan;
+
+			if (no_srt.search (new RegExp (asal, "i")) !== -1) {
+				return false;
+			}
+
+			return true;
+		}
+
 	,	doFilter	:function (cls)
 		{
 			cls.store.filterBy (function (r, id) {
@@ -44,24 +61,126 @@ function JxPahan10 ()
 				if (r.get ("id_reg") === this.fGol.getValue ()) {
 					if (reserse === "NR") {
 						if (reg_gol.search (new RegExp ("NR", "i")) !== -1) {
-							return true;
+							return this.store.doFilterAsalTahanan (this, r, id);
 						}
 						return false;
 					} else if (reserse === "TPK") {
 						if (reg_gol.search (new RegExp ("TPK", "i")) !== -1) {
-							return true;
+							return this.store.doFilterAsalTahanan (this, r, id);
 						}
 						return false;
 					} else {
 						if (reg_gol.search (new RegExp ("NR|TPK", "i")) !== -1) {
 							return false;
 						}
-						return true;
+						return this.store.doFilterAsalTahanan (this, r, id);
 					}
 				}
 				return false;
 			}
 			, cls);
+		}
+	});
+
+	this.fDate			= Ext.create ("Ext.form.field.Date",
+	{
+		fieldLabel		:"Tanggal Ekspirasi"
+	,	labelWidth		:150
+	,	name			:"date_expired"
+	,	labelAlign		:"right"
+	,	format			:"d/m/Y"
+	,	submitFormat	:"Y-m-d"
+	});
+
+	this.storeGol	= Ext.create ("Jx.Store",
+	{
+		url			:this.dirGol
+	,	autoLoad	:true
+	,	singleApi	:false
+	,	fields		:
+		[
+			"id"
+		,	"text"
+		]
+	});
+
+	this.fGol			= Ext.create ("Ext.form.field.ComboBox",
+	{
+		fieldLabel		:"Registrasi Golongan"
+	,	labelWidth		:150
+	,	labelAlign		:"right"
+	,	store			:this.storeGol
+	,	valueField		:"id"
+	,	displayField	:"text"
+	,	editable		:false
+	});
+
+	this.rgReserse	= Ext.create ("Ext.form.RadioGroup",
+	{
+		border		:1
+	,	style		:
+		{
+			borderColor	:'silver'
+		,	borderStyle	:'solid'
+		}
+	,	defaults	:
+		{
+			name		:"reserse"
+		,	padding		:2
+		,	width		:90
+		}
+	,	items		:
+		[{
+			boxLabel	:"Reskrim"
+		,	inputValue	:"RESKRIM"
+		,	checked		:true
+		},{
+			boxLabel	:"Narkoba"
+		,	inputValue	:"NR"
+		},{
+			boxLabel	:"Tipikor"
+		,	inputValue	:"TPK"
+		}]
+	});
+
+	this.rgAsalTahanan	= Ext.create ("Ext.form.RadioGroup",
+	{
+		disabled	:true
+	,	border		:1
+	,	style		:
+		{
+			borderColor	:'silver'
+		,	borderStyle	:'solid'
+		}
+	,	defaults	:
+		{
+			name		:"asal_tahanan"
+		,	padding		:2
+		,	width		:90
+		}
+	,	items		:
+		[{
+			boxLabel	:"Kepolisian"
+		,	inputValue	:"SP.HAN"
+		,	checked		:true
+		},{
+			boxLabel	:"Kejati"
+		,	inputValue	:"T-"
+		},{
+			boxLabel	:"Pengadilan"
+		,	inputValue	:"Pen"
+		}]
+	});
+
+	this.bRefresh	= Ext.create ("Ext.button.Button",
+	{
+		text		:"Muat ulang"
+	,	iconCls		:"refresh"
+	,	flex		:0
+	,	scope		:this
+	,	handler		:function (b)
+		{
+			this.doLoad ();
 		}
 	});
 
@@ -109,7 +228,7 @@ function JxPahan10 ()
 			}
 		}
 	});
-	
+
 	this.bAdd		= Ext.create ("Ext.button.Button",
 	{
 		iconCls		:"add"
@@ -118,79 +237,7 @@ function JxPahan10 ()
 	,	handler		:function (b)
 		{
 			var r = this.fTapi.findRecordByValue (this.fTapi.getValue ());
-			console.log (r);
 			this.store.add (r);
-		}
-	});
-
-	this.storeGol	= Ext.create ("Jx.Store",
-	{
-		url			:this.dirGol
-	,	autoLoad	:true
-	,	singleApi	:false
-	,	fields		:
-		[
-			"id"
-		,	"text"
-		]
-	});
-
-	this.fDate			= Ext.create ("Ext.form.field.Date",
-	{
-		fieldLabel		:"Tanggal Ekspirasi"
-	,	name			:"date_expired"
-	,	labelAlign		:"top"
-	,	format			:"d/m/Y"
-	,	submitFormat	:"Y-m-d"
-	});
-
-	this.fGol			= Ext.create ("Ext.form.field.ComboBox",
-	{
-		fieldLabel		:"Registrasi Golongan"
-	,	labelAlign		:"top"
-	,	store			:this.storeGol
-	,	valueField		:"id"
-	,	displayField	:"text"
-	,	editable		:false
-	});
-
-	this.rgReserse	= Ext.create ("Ext.form.RadioGroup",
-	{
-		border		:1
-	,	style		:
-		{
-			borderColor	:'silver'
-		,	borderStyle	:'solid'
-		}
-	,	defaults	:
-		{
-			name		:"reserse"
-		,	padding		:2
-		,	width		:80
-		}
-	,	items		:
-		[{
-			boxLabel	:"Reskrim"
-		,	inputValue	:"RESKRIM"
-		,	checked		:true
-		},{
-			boxLabel	:"Narkoba"
-		,	inputValue	:"NR"
-		},{
-			boxLabel	:"Tipikor"
-		,	inputValue	:"TPK"
-		}]
-	});
-
-	this.bRefresh	= Ext.create ("Ext.button.Button",
-	{
-		text		:"Muat ulang"
-	,	iconCls		:"refresh"
-	,	flex		:0
-	,	scope		:this
-	,	handler		:function (b)
-		{
-			this.doLoad ();
 		}
 	});
 
@@ -198,7 +245,8 @@ function JxPahan10 ()
 	{
 		fieldLabel		:"Tanggal Surat"
 	,	name			:"print_date"
-	,	labelAlign		:"top"
+	,	labelWidth		:150
+	,	labelAlign		:"right"
 	,	flex			:1
 	,	format			:"d/m/Y"
 	,	value			:new Date ()
@@ -221,7 +269,8 @@ function JxPahan10 ()
 	{
 		name			:"wilayah"
 	,	fieldLabel		:"Wilayah 1"
-	,	labelAlign		:"top"
+	,	labelAlign		:"right"
+	,	labelWidth		:150
 	,	store			:this.storeWilayah
 	,	valueField		:"nama"
 	,	displayField	:"nama"
@@ -234,7 +283,8 @@ function JxPahan10 ()
 	{
 		name			:"wilayah"
 	,	fieldLabel		:"Wilayah 2"
-	,	labelAlign		:"top"
+	,	labelAlign		:"right"
+	,	labelWidth		:150
 	,	store			:this.storeWilayah
 	,	valueField		:"nama"
 	,	displayField	:"nama"
@@ -242,7 +292,7 @@ function JxPahan10 ()
 	,	allowBlank		:false
 	,	flex			:1
 	});
-	
+
 	this.storePtd = Ext.create ("Jx.StorePaging",
 	{
 		url			:this.dirPtd
@@ -278,19 +328,33 @@ function JxPahan10 ()
 	,	scope		:this
 	,	handler		:function (b)
 		{
-			var gol = this.fGol.getValue ();
-			var res = this.rgReserse.getValue ().reserse;
-			
-			var form = document.createElement('form');
+			var gol		= this.fGol.getValue ();
+			var form	= document.createElement('form');
 
-			form.target	= "PAHAN_10_"+ gol +"_"+ res;
+			form.target	= "PAHAN_10_"+ gol;
 			form.method	= "POST";
-			form.action	= this.dir +"/print_"+ form.target +".php";
+			form.action	= this.dir +"/print_"+ form.target + _g_ext;
 
 			var postInput	= document.createElement ('input');
 			postInput.type	= "hidden";
 			postInput.name	= "data";
 			postInput.value	= Ext.encode (Ext.pluck(this.store.data.items, 'data'));
+			form.appendChild(postInput);
+
+			var postInput	= document.createElement ('input');
+			postInput.type	= "hidden";
+			postInput.name	= "reserse";
+			postInput.value	= this.rgReserse.getValue ().reserse;
+			form.appendChild(postInput);
+
+			var postInput	= document.createElement ('input');
+			postInput.type	= "hidden";
+			postInput.name	= "asal_tahanan";
+			if (! this.rgAsalTahanan.isDisabled ()) {
+				postInput.value	= this.rgAsalTahanan.getValue ().asal_tahanan;
+			} else {
+				postInput.value	= "";
+			}
 			form.appendChild(postInput);
 
 			var postInput	= document.createElement ('input');
@@ -327,7 +391,7 @@ function JxPahan10 ()
 				Jx.msg.error ("You must allow popups for this map to work.");
 			}
 		}
-	});	
+	});
 
 	this.panel	= Ext.create ("Ext.grid.Panel", {
 		id				:this.id
@@ -394,6 +458,7 @@ function JxPahan10 ()
 					this.fDate
 				,	this.fGol
 				,	this.rgReserse
+				,	this.rgAsalTahanan
 				,	this.bRefresh
 				]
 			},{
@@ -432,7 +497,7 @@ function JxPahan10 ()
 				]
 			},	"->"
 			,	"-"
-			,	this.bPrint			
+			,	this.bPrint
 			]
 		}]
 	});
@@ -461,7 +526,7 @@ function JxPahan10 ()
 		this.store.doFilter (this);
 	}
 	, this);
-	
+
 	this.fDate.on ("change", function (fd, newv, oldv, e) {
 		if (fd.isValid ()) {
 			this.doLoad ();
@@ -471,14 +536,26 @@ function JxPahan10 ()
 
 	this.fGol.on ("change", function (cb, newv, oldv, e) {
 		this.store.doFilter (this);
+		if (newv === "AI") {
+			this.rgAsalTahanan.setDisabled (false);
+		} else {
+			this.rgAsalTahanan.setDisabled (true);
+		}
 	}
 	, this);
-	
+
 	this.rgReserse.on ("change", function (rg, newv, oldv, e) {
 		this.store.doFilter (this);
 	}
 	, this);
-	
+
+	this.rgAsalTahanan.on ("change"
+	, function (rg, newv, oldv, e)
+	{
+		this.store.doFilter (this);
+	}
+	, this);
+
 	this.doLoad	= function ()
 	{
 		this.store.proxy.extraParams.query = this.fDate.getSubmitValue ();

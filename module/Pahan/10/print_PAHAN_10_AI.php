@@ -7,7 +7,9 @@
 
 setlocale (LC_TIME, "");
 
-$print_date = $_POST["print_date"];
+$reserse		= $_POST["reserse"];
+$asal_tahanan	= $_POST["asal_tahanan"];
+$print_date		= $_POST["print_date"];
 
 if (empty ($print_date)) {
 	$print_date = strftime ("%#d %B %Y");
@@ -61,7 +63,16 @@ $print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
 				<span id="provinsi">
 					<?php echo strtoupper($print_wil1); ?>
 				</span><br/>
-				Cq. DIREKTUR RESERSE KRIMINAL UMUM<br/>
+				<?php
+					if ($reserse === "RESKRIM") {
+						echo "Cq. DIREKTUR RESERSE KRIMINAL UMUM";
+					} else if ($reserse === "NR") {
+						echo "Cq. DIREKTUR RESERSE NARKOBA";
+					} else if ($reserse === "TPK") {
+						echo "Cq. DIREKTUR RESERSE KRIMINAL UMUM";
+					}
+				?>
+				<br/>
 				Di - 
 				<span id="kota">
 					<?php echo strtoupper($print_wil2); ?>
@@ -143,9 +154,17 @@ $print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
 			Tembusan disampaikan kepada Yth:
 			</p>
 			<ol class="attachment">
-				<li>Kepala Kantor Wilayah Kementrian Hukum dan HAM <?php echo $print_wil1; ?></li>
+				<li>Kepala Kantor Wilayah Kementrian Hukum dan HAM <?php echo $print_wil1; ?> di <?php echo $print_wil2; ?></li>
 				<li>Direktur Tahanan dan Barang Bukti Polda <?php echo $print_wil1; ?> di <?php echo $print_wil2; ?></li>
-				<li>Ketua Pengadilan Negeri <?php echo $print_wil2; ?> di <?php echo $print_wil2; ?></li>
+				<?php
+					if (! empty ($asal_tahanan)) {
+						if ($asal_tahanan === "T-") {
+							echo "<li>Kepala Kejaksaan Tinggi ". $print_wil1 ." di ". $print_wil2 ."</li>";
+						} else if ($asal_tahanan === "Pen") {
+							echo "<li>Ketua Pengadilan Negeri ". $print_wil2 ." di ". $print_wil2 ."</li>";
+						}
+					}
+				?>
 				<li>Arsip</li>
 			</ol>
 		</div>
