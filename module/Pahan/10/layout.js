@@ -55,28 +55,40 @@ function JxPahan10 ()
 	,	doFilter	:function (cls)
 		{
 			cls.store.filterBy (function (r, id) {
-				var reg_gol	= r.get ("nmr_reg_gol");
-				var reserse = this.rgReserse.getValue ().reserse;
+				if (r.get ("id_reg") !== this.fGol.getValue ()) {
+					return false;
+				}
 
-				if (r.get ("id_reg") === this.fGol.getValue ()) {
-					if (reserse === "NR") {
+				var reg_gol	= r.get ("nmr_reg_gol");
+				var rv		= this.rgReserse.getValue ().reserse;
+				var torf	= false;
+				var reserse	= [];
+
+				if (rv === undefined) {
+					return false;
+				}
+				if (typeof rv === "string") {
+					reserse.push (rv);
+				} else {
+					reserse = rv;
+				}
+
+				for (var i = 0; i < reserse.length; i++) {
+					if (reserse[i] === "NR") {
 						if (reg_gol.search (new RegExp ("NR", "i")) !== -1) {
-							return this.store.doFilterAsalTahanan (this, r, id);
+							torf = this.store.doFilterAsalTahanan (this, r, id);
 						}
-						return false;
-					} else if (reserse === "TPK") {
+					} else if (reserse[i] === "TPK") {
 						if (reg_gol.search (new RegExp ("TPK", "i")) !== -1) {
-							return this.store.doFilterAsalTahanan (this, r, id);
+							torf = this.store.doFilterAsalTahanan (this, r, id);
 						}
-						return false;
-					} else {
-						if (reg_gol.search (new RegExp ("NR|TPK", "i")) !== -1) {
-							return false;
+					} else if (reserse[i] === "RESKRIM") {
+						if (reg_gol.search (new RegExp ("NR|TPK", "i")) === -1) {
+							torf = this.store.doFilterAsalTahanan (this, r, id);
 						}
-						return this.store.doFilterAsalTahanan (this, r, id);
 					}
 				}
-				return false;
+				return torf;
 			}
 			, cls);
 		}
@@ -115,7 +127,7 @@ function JxPahan10 ()
 	,	editable		:false
 	});
 
-	this.rgReserse	= Ext.create ("Ext.form.RadioGroup",
+	this.rgReserse	= Ext.create ("Ext.form.CheckboxGroup",
 	{
 		border		:1
 	,	style		:
@@ -131,15 +143,17 @@ function JxPahan10 ()
 		}
 	,	items		:
 		[{
-			boxLabel	:"Reskrim"
-		,	inputValue	:"RESKRIM"
-		,	checked		:true
-		},{
 			boxLabel	:"Narkoba"
 		,	inputValue	:"NR"
+		,	checked		:true
 		},{
 			boxLabel	:"Tipikor"
 		,	inputValue	:"TPK"
+		,	checked		:true
+		},{
+			boxLabel	:"Reskrim"
+		,	inputValue	:"RESKRIM"
+		,	checked		:true
 		}]
 	});
 
