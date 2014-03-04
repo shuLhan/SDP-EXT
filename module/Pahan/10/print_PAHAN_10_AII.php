@@ -7,6 +7,7 @@
 
 setlocale (LC_TIME, "");
 
+$kejaksaan		= $_POST["kejaksaan"];
 $reserse		= $_POST["reserse"];
 $asal_tahanan	= $_POST["asal_tahanan"];
 $print_date		= $_POST["print_date"];
@@ -52,7 +53,16 @@ $print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
 			<div>:</div>
 			<div>-</div>
 			<div>Yth.</div>
-			<div>Kepala Kepolisian Daerah</div>
+			<div>Kepala Kejaksaan Negeri
+				<?php
+					if ($kejaksaan === "CMI") {
+						echo "Cimahi <br/>"
+							."Cq. Kasie Pidana Umum <br/>";
+					} else {
+						echo $print_wil2;
+					}
+				?>
+			</div>
 		</div>
 		<div class="header">
 			<div>Perihal</div>
@@ -60,22 +70,15 @@ $print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
 			<div>Pemberitahuan 10 (sepuluh) hari lagi akan habisnya masa penahanan tersangka atas nama :</div>
 			<div></div>
 			<div>
-				<span id="provinsi">
-					<?php echo $print_wil1; ?>
-				</span><br/>
-				<?php
-					if ($reserse === "RESKRIM") {
-						echo "Cq. Direktur Reserse Kriminal Umum";
-					} else if ($reserse === "NR") {
-						echo "Cq. Direktur Reserse Narkoba";
-					} else if ($reserse === "TPK") {
-						echo "Cq. Direktur Reserse Kriminal Umum";
-					}
-				?>
-				<br/>
 				Di - 
 				<span id="kota">
-					<?php echo $print_wil2; ?>
+					<?php
+						if ($kejaksaan === "CMI") {
+							echo "CIMAHI";
+						} else {
+							echo $print_wil2;
+						}
+					?>
 				</span>
 			</div>
 		</div>
@@ -91,7 +94,7 @@ $print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
 				<div><div>Tanggal <br/> dan <br/> No. Surat Penahanan</div></div>
 				<div><div>Tanggal mulai Ditahan</div></div>
 				<div><div>Tanggal akan habisnya</div></div>
-				<div><div>Keterangan</div></div>
+				<div><div>JPU</div></div>
 			</div>
 <?php
 	$wbp	= json_decode (stripslashes($_POST["data"]), true);
@@ -103,9 +106,15 @@ $print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
 				."<div><div>". $w["alamat"]										."</div></div>"
 				."<div><div>". $w["tgl_srt_thn"] ."<br/>". $w["nmr_srt_thn"]	."</div></div>"
 				."<div><div>". $w["tgl_awal_tahan_golongan"]					."</div></div>"
-				."<div><div>". $w["tgl_ekspirasi"]								."</div></div>"
-				."<div><div>". $w["nama_jaksa_utama"]							."</div></div>"
-			."</div>";
+				."<div><div>". $w["tgl_ekspirasi"]								."</div></div>";
+		
+		if ($w["id_reg"] === "AII") {
+			echo "<div><div>". $w["nm_pjbt_thn"]								."</div></div>";
+		} else {
+			echo "<div><div>". $w["nama_jaksa_utama"]							."</div></div>";
+		}
+		
+		echo "</div>";
 		$i++;
 	}
 ?>
@@ -155,13 +164,19 @@ $print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
 			</p>
 			<ol class="attachment">
 				<li>Kepala Kantor Wilayah Kementrian Hukum dan HAM <?php echo $print_wil1; ?> di <?php echo $print_wil2; ?></li>
-				<li>Direktur Tahanan dan Barang Bukti Polda <?php echo $print_wil1; ?> di <?php echo $print_wil2; ?></li>
 				<?php
-					if (! empty ($asal_tahanan)) {
-						if ($asal_tahanan === "T-") {
-							echo "<li>Kepala Kejaksaan Tinggi ". $print_wil1 ." di ". $print_wil2 ."</li>";
-						} else if ($asal_tahanan === "Pen") {
-							echo "<li>Ketua Pengadilan Negeri ". $print_wil2 ." di ". $print_wil2 ."</li>";
+					if ($kejaksaan === "CMI") {
+						echo "<li>Yth. Ketua Pengadilan Bale Bandung Di Kabupaten Bandung </li>";
+					} else {
+						if (! empty ($asal_tahanan)) {
+							if ($asal_tahanan === "T-") {
+								echo "<li>Kepala Kejaksaan Tinggi ". $print_wil1 ." di ". $print_wil2 ."</li>";
+							} else if ($asal_tahanan === "Pen") {
+								echo "<li>Ketua Pengadilan Negeri Klas I ". $print_wil2 ." di ". $print_wil2 ."</li>";
+							}
+						}
+						if ($reserse === "TPK") {
+							echo "<li>Ketua Pengadilan Tindak Pidana Korupsi ". $print_wil2 ." di ". $print_wil2 ."</li>";
 						}
 					}
 				?>

@@ -18,6 +18,7 @@ try {
 		."	,		B.tgl_awal_tahan_golongan"
 		."	,		B.tgl_ekspirasi"
 		."	,		B.nama_jaksa_utama"
+		."	,		B.nm_pjbt_thn"
 		."	from	rutanbandung_db.identitas			as A"
 		."	,		rutanbandung_db.perkara				as B"
 		."	,		rutanbandung_db.jenis_registrasi	as C"

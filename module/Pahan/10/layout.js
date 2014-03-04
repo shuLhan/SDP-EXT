@@ -34,6 +34,7 @@ function JxPahan10 ()
 		,	"tgl_awal_tahan_golongan"
 		,	"tgl_ekspirasi"
 		,	"nama_jaksa_utama"
+		,	"nm_pjbt_thn"
 		]
 
 	,	doFilterKejaksaan :function (cls, r, id)
@@ -168,24 +169,25 @@ function JxPahan10 ()
 
 	this.cbKejaksaanBdg	= Ext.create ("Ext.form.field.Checkbox",
 	{
-			boxLabel	:"Bandung"
+			name		:"kejaksaan"
+		,	boxLabel	:"Bandung"
 		,	inputValue	:"BDG"
 		,	checked		:true
 	});
 
 	this.cbKejaksaanCmi	= Ext.create ("Ext.form.field.Checkbox",
 	{
-			boxLabel	:"Kab. Bandung"
+			name		:"kejaksaan"
+		,	boxLabel	:"Kab. Bandung"
 		,	inputValue	:"CMI"
 		,	checked		:true
 	});
 
-	this.cgKejaksaan		= Ext.create ("Ext.form.CheckboxGroup",
+	this.cgKejaksaan= Ext.create ("Ext.form.CheckboxGroup",
 	{
 		defaults	:
 		{
-			name		:"kejaksaan"
-		,	padding		:2
+			padding		:2
 		,	width		:110
 		}
 	,	items		:
@@ -197,21 +199,27 @@ function JxPahan10 ()
 
 	this.cbNR		= Ext.create ("Ext.form.field.Checkbox",
 	{
-		boxLabel	:"Narkoba"
+		id			:"NR"
+	,	boxLabel	:"Narkoba"
+	,	name		:"reserse"
 	,	inputValue	:"NR"
 	,	checked		:true
 	});
 
 	this.cbTPK		= Ext.create ("Ext.form.field.Checkbox",
 	{
-		boxLabel	:"Tipikor"
+		id			:"TPK"
+	,	boxLabel	:"Tipikor"
+	,	name		:"reserse"
 	,	inputValue	:"TPK"
 	,	checked		:true
 	});
 
 	this.cbRESKRIM	= Ext.create ("Ext.form.field.Checkbox",
 	{
-		boxLabel	:"Reskrim"
+		id			:"RESKRIM"
+	,	boxLabel	:"Reskrim"
+	,	name		:"reserse"
 	,	inputValue	:"RESKRIM"
 	,	checked		:true
 	});
@@ -220,8 +228,7 @@ function JxPahan10 ()
 	{
 		defaults	:
 		{
-			name		:"reserse"
-		,	padding		:2
+			padding		:2
 		,	width		:90
 		}
 	,	items		:
@@ -446,6 +453,12 @@ function JxPahan10 ()
 
 			var postInput	= document.createElement ('input');
 			postInput.type	= "hidden";
+			postInput.name	= "kejaksaan";
+			postInput.value	= this.cgKejaksaan.getValue ().kejaksaan;
+			form.appendChild(postInput);
+
+			var postInput	= document.createElement ('input');
+			postInput.type	= "hidden";
 			postInput.name	= "reserse";
 			postInput.value	= this.cgReserse.getValue ().reserse;
 			form.appendChild(postInput);
@@ -536,6 +549,16 @@ function JxPahan10 ()
 			header		:"JPU"
 		,	dataIndex	:"nama_jaksa_utama"
 		,	width		:160
+		,	renderer	:function (v, md, r)
+			{
+				console.log (r.get("id_reg"));
+
+				if (r.get ("id_reg") === "AII") {
+					return r.get ("nm_pjbt_thn");
+				} else {
+					return r.get ("nama_jaksa_utama");
+				}
+			}
 		}]
 	,	dockedItems		:
 		[{
