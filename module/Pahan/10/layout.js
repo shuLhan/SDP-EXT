@@ -36,20 +36,53 @@ function JxPahan10 ()
 		,	"nama_jaksa_utama"
 		]
 
+	,	doFilterKejaksaan :function (cls, r, id)
+		{
+			var reg_gol		= r.get ("nmr_reg_gol");
+			var torf		= false;
+
+			if (true === cls.cbKejaksaanBdg.getValue ()) {
+				if (reg_gol.search (new RegExp ("CMI", "i")) === -1) {
+					return true;
+				}
+			}
+			if (true === cls.cbKejaksaanCmi.getValue ()) {
+				if (reg_gol.search (new RegExp ("CMI", "i")) !== -1) {
+					return true;
+				}
+			}
+
+			return torf;
+		}
+
 	,	doFilterAsalTahanan :function (cls, r, id)
 		{
-			if (cls.rgAsalTahanan.isDisabled ()) {
-				return true;
-			}
-
 			var no_srt	= r.get ("nmr_srt_thn");
-			var asal	= cls.rgAsalTahanan.getValue ().asal_tahanan;
-
-			if (no_srt.search (new RegExp (asal, "i")) !== -1) {
-				return false;
+			var i		= 0;
+			var asal	= "";
+			if (true === cls.rbKepolisian.getValue ()) {
+				asal = cls.rbKepolisian.getSubmitValue ();
+				i = no_srt.search (new RegExp (asal, "i"));
+				if (i !== -1) {
+					return true;
+				}
+			}
+			if (true === cls.rbKejati.getValue ()) {
+				asal	= cls.rbKejati.getSubmitValue ();
+				i		= no_srt.search (new RegExp (asal, "i"));
+				if (i !== - 1) {
+					return true;
+				}
+			}
+			if (true === cls.rbPengadilan.getValue ()) {
+				asal	= cls.rbPengadilan.getSubmitValue ();
+				i = no_srt.search (new RegExp (asal, "i"));
+				if (i !== - 1) {
+					return true;
+				}
 			}
 
-			return true;
+			return false;
 		}
 
 	,	doFilter	:function (cls)
@@ -60,34 +93,40 @@ function JxPahan10 ()
 				}
 
 				var reg_gol	= r.get ("nmr_reg_gol");
-				var rv		= this.rgReserse.getValue ().reserse;
 				var torf	= false;
-				var reserse	= [];
 
-				if (rv === undefined) {
+				torf = this.store.doFilterKejaksaan (this, r, id);
+
+				if (false === torf) {
 					return false;
 				}
-				if (typeof rv === "string") {
-					reserse.push (rv);
-				} else {
-					reserse = rv;
-				}
 
-				for (var i = 0; i < reserse.length; i++) {
-					if (reserse[i] === "NR") {
-						if (reg_gol.search (new RegExp ("NR", "i")) !== -1) {
-							torf = this.store.doFilterAsalTahanan (this, r, id);
-						}
-					} else if (reserse[i] === "TPK") {
-						if (reg_gol.search (new RegExp ("TPK", "i")) !== -1) {
-							torf = this.store.doFilterAsalTahanan (this, r, id);
-						}
-					} else if (reserse[i] === "RESKRIM") {
-						if (reg_gol.search (new RegExp ("NR|TPK", "i")) === -1) {
-							torf = this.store.doFilterAsalTahanan (this, r, id);
-						}
+				if (true === this.cbNR.getValue ()) {
+					if (reg_gol.search (new RegExp ("NR", "i")) !== -1) {
+						return this.store.doFilterAsalTahanan (this, r, id);
+					}
+				} else {
+					if (reg_gol.search (new RegExp ("NR", "i")) !== -1) {
+						return false;
 					}
 				}
+				if (true === this.cbTPK.getValue ()) {
+					if (reg_gol.search (new RegExp ("TPK", "i")) !== -1) {
+						return this.store.doFilterAsalTahanan (this, r, id);
+					}
+				} else {
+					if (reg_gol.search (new RegExp ("TPK", "i")) !== -1) {
+						return false;
+					}
+				}
+				if (true === this.cbRESKRIM.getValue ()) {
+					if (reg_gol.search (new RegExp ("NR|TPK", "i")) === -1) {
+						return this.store.doFilterAsalTahanan (this, r, id);
+					}
+				} else {
+					return false;
+				}
+
 				return torf;
 			}
 			, cls);
@@ -127,63 +166,113 @@ function JxPahan10 ()
 	,	editable		:false
 	});
 
-	this.rgReserse	= Ext.create ("Ext.form.CheckboxGroup",
+	this.cbKejaksaanBdg	= Ext.create ("Ext.form.field.Checkbox",
 	{
-		border		:1
-	,	style		:
+			boxLabel	:"Bandung"
+		,	inputValue	:"BDG"
+		,	checked		:true
+	});
+
+	this.cbKejaksaanCmi	= Ext.create ("Ext.form.field.Checkbox",
+	{
+			boxLabel	:"Kab. Bandung"
+		,	inputValue	:"CMI"
+		,	checked		:true
+	});
+
+	this.cgKejaksaan		= Ext.create ("Ext.form.CheckboxGroup",
+	{
+		defaults	:
 		{
-			borderColor	:'silver'
-		,	borderStyle	:'solid'
+			name		:"kejaksaan"
+		,	padding		:2
+		,	width		:110
 		}
-	,	defaults	:
+	,	items		:
+		[
+			this.cbKejaksaanBdg
+		,	this.cbKejaksaanCmi
+		]
+	});
+
+	this.cbNR		= Ext.create ("Ext.form.field.Checkbox",
+	{
+		boxLabel	:"Narkoba"
+	,	inputValue	:"NR"
+	,	checked		:true
+	});
+
+	this.cbTPK		= Ext.create ("Ext.form.field.Checkbox",
+	{
+		boxLabel	:"Tipikor"
+	,	inputValue	:"TPK"
+	,	checked		:true
+	});
+
+	this.cbRESKRIM	= Ext.create ("Ext.form.field.Checkbox",
+	{
+		boxLabel	:"Reskrim"
+	,	inputValue	:"RESKRIM"
+	,	checked		:true
+	});
+
+	this.cgReserse	= Ext.create ("Ext.form.CheckboxGroup",
+	{
+		defaults	:
 		{
 			name		:"reserse"
 		,	padding		:2
 		,	width		:90
 		}
 	,	items		:
-		[{
-			boxLabel	:"Narkoba"
-		,	inputValue	:"NR"
-		,	checked		:true
-		},{
-			boxLabel	:"Tipikor"
-		,	inputValue	:"TPK"
-		,	checked		:true
-		},{
-			boxLabel	:"Reskrim"
-		,	inputValue	:"RESKRIM"
-		,	checked		:true
-		}]
+		[
+			this.cbNR
+		,	this.cbTPK
+		,	this.cbRESKRIM
+		]
+	});
+
+	this.rbKepolisian	= Ext.create ("Ext.form.field.Radio",
+	{
+		id				:"asal_polisi"
+	,	name			:"asal_tahanan"
+	,	boxLabel		:"Kepolisian"
+	,	inputValue		:"SP.HAN"
+	,	checked			:true
+	});
+
+	this.rbKejati		= Ext.create ("Ext.form.field.Radio",
+	{
+		id				:"asal_kejati"
+	,	name			:"asal_tahanan"
+	,	boxLabel		:"Kejati"
+	,	inputValue		:"T-"
+	,	checked			:false
+	});
+
+	this.rbPengadilan	= Ext.create ("Ext.form.field.Radio",
+	{
+		id				:"asal_pengadilan"
+	,	name			:"asal_tahanan"
+	,	boxLabel		:"Pengadilan"
+	,	inputValue		:"Pen"
+	,	checked			:false
 	});
 
 	this.rgAsalTahanan	= Ext.create ("Ext.form.RadioGroup",
 	{
-		disabled	:true
-	,	border		:1
-	,	style		:
-		{
-			borderColor	:'silver'
-		,	borderStyle	:'solid'
-		}
+		layout		:"hbox"
 	,	defaults	:
 		{
-			name		:"asal_tahanan"
-		,	padding		:2
+			padding		:2
 		,	width		:90
 		}
 	,	items		:
-		[{
-			boxLabel	:"Kepolisian"
-		,	inputValue	:"SP.HAN"
-		,	checked		:true
-		},{
-			boxLabel	:"Kejati"
-		,	inputValue	:"T-"
-		},{
-			boxLabel	:"Pengadilan"
-		,	inputValue	:"Pen"
-		}]
+		[
+			this.rbKepolisian
+		,	this.rbKejati
+		,	this.rbPengadilan
+		]
 	});
 
 	this.bRefresh	= Ext.create ("Ext.button.Button",
@@ -358,17 +447,13 @@ function JxPahan10 ()
 			var postInput	= document.createElement ('input');
 			postInput.type	= "hidden";
 			postInput.name	= "reserse";
-			postInput.value	= this.rgReserse.getValue ().reserse;
+			postInput.value	= this.cgReserse.getValue ().reserse;
 			form.appendChild(postInput);
 
 			var postInput	= document.createElement ('input');
 			postInput.type	= "hidden";
 			postInput.name	= "asal_tahanan";
-			if (! this.rgAsalTahanan.isDisabled ()) {
-				postInput.value	= this.rgAsalTahanan.getValue ().asal_tahanan;
-			} else {
-				postInput.value	= "";
-			}
+			postInput.value	= this.rgAsalTahanan.getValue ().asal_tahanan;
 			form.appendChild(postInput);
 
 			var postInput	= document.createElement ('input');
@@ -456,9 +541,11 @@ function JxPahan10 ()
 		[{
 			xtype		:"toolbar"
 		,	dock		:"left"
+		,	autoScroll	:true
 		,	items		:
 			[{
 				xtype	:"fieldset"
+			,	border	:false
 			,	layout	:
 				{
 					type			:"vbox"
@@ -471,8 +558,28 @@ function JxPahan10 ()
 				[
 					this.fDate
 				,	this.fGol
-				,	this.rgReserse
-				,	this.rgAsalTahanan
+				,{
+					xtype	:"fieldset"
+				,	title	:"Asal Kejaksaan"
+				,	items	:
+					[
+						this.cgKejaksaan
+					]
+				},{
+					xtype	:"fieldset"
+				,	title	:"Jenis Tahanan"
+				,	items	:
+					[
+						this.cgReserse
+					]
+				},{
+					xtype	:"fieldset"
+				,	title	:"Tembusan / Asal Penahanan"
+				,	items	:
+					[
+						this.rgAsalTahanan
+					]
+				}
 				,	this.bRefresh
 				]
 			},{
@@ -549,16 +656,25 @@ function JxPahan10 ()
 	, this);
 
 	this.fGol.on ("change", function (cb, newv, oldv, e) {
-		this.store.doFilter (this);
 		if (newv === "AI") {
-			this.rgAsalTahanan.setDisabled (false);
+			this.rbKepolisian.setValue (true);
+			this.rbKepolisian.show ();
 		} else {
-			this.rgAsalTahanan.setDisabled (true);
+			this.rbKepolisian.setValue (false);
+			this.rbKejati.setValue (true);
+			this.rbKepolisian.hide ();
 		}
+		this.store.doFilter (this);
 	}
 	, this);
 
-	this.rgReserse.on ("change", function (rg, newv, oldv, e) {
+	this.cgKejaksaan.on ("change", function (cg, newv, oldv, e)
+	{
+		this.store.doFilter (this);
+	}
+	, this);
+
+	this.cgReserse.on ("change", function (rg, newv, oldv, e) {
 		this.store.doFilter (this);
 	}
 	, this);
