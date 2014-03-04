@@ -42,7 +42,7 @@ $print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
 		<div class="header">
 			<div>Nomor</div>
 			<div>:</div>
-			<div><pre>W.11.PAS.PAS.27-PK.01.01.01-                / <?php echo date("Y"); ?></pre>
+			<div><pre>W.11.PAS.PAS.27-PK.01.01.01-                         / <?php echo date("Y"); ?></pre>
 			</div>
 			<div></div>
 			<div></div>
