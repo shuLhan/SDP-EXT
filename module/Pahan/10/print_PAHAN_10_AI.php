@@ -20,7 +20,9 @@ if (empty ($print_date)) {
 
 $print_wil1	= $_POST["print_wilayah_1"];
 $print_wil2	= $_POST["print_wilayah_2"];
-$print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
+$print_ptd	= json_decode (stripslashes($_POST["print_ptd"]), true);
+$hanging	= $_POST["hanging"];
+$rowsize	= $_POST["rowsize"];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -96,8 +98,15 @@ $print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
 <?php
 	$wbp	= json_decode (stripslashes($_POST["data"]), true);
 	$i		= 1;
+	$c		= count ($wbp);
+
 	foreach ($wbp as $w) {
-		echo "<div class='wbp_data'>"
+		if (($i === $c) && $hanging === "true") {
+			echo "</div>"
+				."<div class='clear'></div>"
+				."<div class='footer'>";
+		}
+		echo "<div class='wbp_data' style='height:". $rowsize ."em;'>"
 				."<div><div>". $i												."</div></div>"
 				."<div><div>". $w["nama_lengkap"]								."</div></div>"
 				."<div><div>". $w["alamat"]										."</div></div>"
@@ -106,12 +115,19 @@ $print_ptd = json_decode (stripslashes($_POST["print_ptd"]), true);
 				."<div><div>". $w["tgl_ekspirasi"]								."</div></div>"
 				."<div><div>". $w["nama_jaksa_utama"]							."</div></div>"
 			."</div>";
+
+		if ($c > 4 && $i % 4 === 0) {
+			echo "<div class='pagebreak'></div>";
+		}
 		$i++;
 	}
+
+	if ($hanging !== "true") {
+		echo "</div>"
+			."<div class='clear'></div>"
+			."<div class='footer'>";
+	}
 ?>
-		</div>
-		<div class="clear"></div>
-		<div class="footer">
 			<p class="text">
 				Demikianlah untuk mendapat perhatian sebagaimana mestinya.
 			</p>

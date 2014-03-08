@@ -31,6 +31,7 @@ function JxPahan10 ()
 		,	"alamat"
 		,	"tgl_srt_thn"
 		,	"nmr_srt_thn"
+		,	"no_srt_pmt"
 		,	"tgl_awal_tahan_golongan"
 		,	"tgl_ekspirasi"
 		,	"nama_jaksa_utama"
@@ -268,7 +269,8 @@ function JxPahan10 ()
 
 	this.rgAsalTahanan	= Ext.create ("Ext.form.RadioGroup",
 	{
-		layout		:"hbox"
+		allowBlank	:false
+	,	layout		:"hbox"
 	,	defaults	:
 		{
 			padding		:2
@@ -308,6 +310,7 @@ function JxPahan10 ()
 		,	"alamat"
 		,	"tgl_srt_thn"
 		,	"nmr_srt_thn"
+		,	"no_srt_pmt"
 		,	"tgl_awal_tahan_golongan"
 		,	"tgl_ekspirasi"
 		,	"nama_jaksa_utama"
@@ -431,6 +434,27 @@ function JxPahan10 ()
 	,	flex			:1
 	});
 
+	this.fRowSize		= Ext.create ("Ext.form.field.Number",
+	{
+		fieldLabel		:"Tinggi baris"
+	,	labelAlign		:"right"
+	,	labelWidth		:150
+	,	flex			:1
+	,	value			:6
+	,	minValue		:2
+	,	maxValue		:8
+	,	allowDecimals	:false
+	});
+
+	this.cbHanging		= Ext.create ("Ext.form.field.Checkbox",
+	{
+		id			:"hanging"
+	,	boxLabel	:"Tempatkan satu baris di bawah"
+	,	name		:"hanging"
+	,	inputValue	:true
+	,	checked		:false
+	});
+
 	this.bPrint		= Ext.create ("Ext.button.Button",
 	{
 		text		:"Cetak"
@@ -493,6 +517,18 @@ function JxPahan10 ()
 			postInput.value	= Ext.encode (this.fPtd.findRecordByValue (this.fPtd.getValue ()).raw);
 			form.appendChild(postInput);
 
+			var postInput	= document.createElement ('input');
+			postInput.type	= "hidden";
+			postInput.name	= "rowsize";
+			postInput.value	= this.fRowSize.getValue ();
+			form.appendChild(postInput);
+
+			var postInput	= document.createElement ('input');
+			postInput.type	= "hidden";
+			postInput.name	= "hanging";
+			postInput.value	= this.cbHanging.getValue ();
+			form.appendChild(postInput);
+
 			document.body.appendChild(form);
 
 			var win = window.open ("", form.target);
@@ -538,21 +574,31 @@ function JxPahan10 ()
 		,	width		:120
 		},{
 			header		:"No. Surat Penahanan"
-		,	dataIndex	:"nmr_srt_thn"
+		,	dataIndex	:"no_srt_pmt"
 		,	width		:220
+		,	renderer	:function (v, md, r)
+			{
+				if (r.get ("no_srt_pmt") === "") {
+					return r.get ("nmr_srt_thn");
+				} else {
+					return r.get ("no_srt_pmt");
+				}
+			}
 		},{
 			header		:"Tgl. Mulai Ditahan"
 		,	dataIndex	:"tgl_awal_tahan_golongan"
 		,	align		:"center"
 		,	width		:140
 		},{
+			header		:"Tgl. Ekspirasi"
+		,	dataIndex	:"tgl_ekspirasi"
+		,	align		:"center"
+		},{
 			header		:"JPU"
 		,	dataIndex	:"nama_jaksa_utama"
 		,	width		:160
 		,	renderer	:function (v, md, r)
 			{
-				console.log (r.get("id_reg"));
-
 				if (r.get ("id_reg") === "AII") {
 					return r.get ("nm_pjbt_thn");
 				} else {
@@ -625,6 +671,11 @@ function JxPahan10 ()
 			,{
 				xtype	:"fieldset"
 			,	title	:"Konfigurasi Cetak"
+			,	margin	:
+				{
+					top		:10
+				,	bottom	:0
+				}
 			,	layout	:
 				{
 					type			:"vbox"
@@ -638,8 +689,11 @@ function JxPahan10 ()
 				,	this.fWilayah1
 				,	this.fWilayah2
 				,	this.fPtd
+				,	this.fRowSize
+				,	this.cbHanging
 				]
-			},	"->"
+			}
+			,	"->"
 			,	"-"
 			,	this.bPrint
 			]
