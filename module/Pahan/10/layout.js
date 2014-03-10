@@ -34,8 +34,9 @@ function JxPahan10 ()
 		,	"no_srt_pmt"
 		,	"tgl_awal_tahan_golongan"
 		,	"tgl_ekspirasi"
-		,	"nama_jaksa_utama"
 		,	"nm_pjbt_thn"
+		,	"nama_jaksa_utama"
+		,	"nama_hakim_utama"
 		]
 
 	,	doFilterKejaksaan :function (cls, r, id)
@@ -607,10 +608,14 @@ function JxPahan10 ()
 		,	width		:160
 		,	renderer	:function (v, md, r)
 			{
-				if (r.get ("id_reg") === "AII") {
+				var id_reg = r.get("id_reg");
+
+				if (id_reg === "AI") {
 					return r.get ("nm_pjbt_thn");
-				} else {
+				} else if (id_reg === "AII") {
 					return r.get ("nama_jaksa_utama");
+				} else if (id_reg === "AIII") {
+					return r.get ("nama_hakim_utama");
 				}
 			}
 		}]
