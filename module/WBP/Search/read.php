@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Copyright 2014 - Mhd Sulhan
  * Authors:
  *   - mhd.sulhan (m.shulhan@gmail.com)
@@ -9,7 +9,7 @@ require_once "../../json_begin.php";
 try {
 	$filter		= $_GET["query"];
 	$st_aktif	= (int) $_GET["subaction"];
-	
+
 	// Get total row
 	$q	="	select		COUNT(A.nomor_induk)	as total "
 		."	from		rutanbandung_db.identitas	as A "
@@ -32,6 +32,7 @@ try {
 		."		or	A.ciri					like ? "
 		."		or	B.id_perkara			like ? "
 		."		or	B.kepolisian			like ? "
+		."		or	B.risalah_kejadian_perkara	like ? "
 		."	) ";
 
 	if ($st_aktif === 1) {
@@ -56,7 +57,8 @@ try {
 	$ps->bindValue ($i++, "%". $filter ."%", PDO::PARAM_STR);
 	$ps->bindValue ($i++, "%". $filter ."%", PDO::PARAM_STR);
 	$ps->bindValue ($i++, "%". $filter ."%", PDO::PARAM_STR);
-												
+	$ps->bindValue ($i++, "%". $filter ."%", PDO::PARAM_STR);
+
 	$ps->execute ();
 	$rs = $ps->fetchAll (PDO::FETCH_ASSOC);
 	$ps->closeCursor ();
@@ -104,6 +106,7 @@ try {
 		."		or	A.ciri					like ? "
 		."		or	B.id_perkara			like ? "
 		."		or	B.kepolisian			like ? "
+		."		or	B.risalah_kejadian_perkara	like ? "
 		."	) ";
 
 	if ($st_aktif === 1) {
@@ -116,6 +119,7 @@ try {
 
 	$ps	= Jaring::$_db->prepare ($q);
 	$i	= 1;
+	$ps->bindValue ($i++, "%". $filter ."%", PDO::PARAM_STR);
 	$ps->bindValue ($i++, "%". $filter ."%", PDO::PARAM_STR);
 	$ps->bindValue ($i++, "%". $filter ."%", PDO::PARAM_STR);
 	$ps->bindValue ($i++, "%". $filter ."%", PDO::PARAM_STR);
