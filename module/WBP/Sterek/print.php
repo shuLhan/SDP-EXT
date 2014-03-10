@@ -8,14 +8,14 @@
  *   - mhd.sulhan (m.shulhan@gmail.com)
  */
 ?>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Cetak Sterek</title>
 		<link rel="stylesheet" href="print.css" type="text/css" media="print, screen" />
 	</head>
 	<body>
 <?php
-$wbp = json_decode (stripslashes($_POST["data"]), true);
+$wbp = json_decode (stripslashes(filter_input (INPUT_POST, "data")), true);
 
 foreach ($wbp as $w) {
 	echo "<div class='sterek'>"

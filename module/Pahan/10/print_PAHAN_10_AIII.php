@@ -7,10 +7,10 @@
 
 setlocale (LC_TIME, "");
 
-$kejaksaan		= $_POST["kejaksaan"];
-$reserse		= $_POST["reserse"];
-$asal_tahanan	= $_POST["asal_tahanan"];
-$print_date		= $_POST["print_date"];
+$kejaksaan		= filter_input (INPUT_POST, "kejaksaan");
+$reserse		= filter_input (INPUT_POST, "reserse");
+$asal_tahanan	= filter_input (INPUT_POST, "asal_tahanan");
+$print_date		= filter_input (INPUT_POST, "print_date");
 
 if (empty ($print_date)) {
 	$print_date = "<pre>". strftime ("%d  %B  %Y") ."</pre>";
@@ -19,14 +19,14 @@ if (empty ($print_date)) {
 	$print_date = "<pre>". strftime ("%d  %B  %Y", $t) ."</pre>";
 }
 
-$print_wil1	= $_POST["print_wilayah_1"];
-$print_wil2	= $_POST["print_wilayah_2"];
-$print_ptd	= json_decode (stripslashes($_POST["print_ptd"]), true);
-$hanging	= $_POST["hanging"];
-$rowsize	= $_POST["rowsize"];
+$print_wil1	= filter_input (INPUT_POST, "print_wilayah_1");
+$print_wil2	= filter_input (INPUT_POST, "print_wilayah_2");
+$print_ptd	= json_decode (stripslashes(filter_input (INPUT_POST, "print_ptd")), true);
+$hanging	= filter_input (INPUT_POST, "hanging");
+$rowsize	= filter_input (INPUT_POST, "rowsize");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Pahan 10 AIII</title>
 		<link rel="stylesheet" href="../print.css" type="text/css" media="print, screen"/>
@@ -99,7 +99,7 @@ $rowsize	= $_POST["rowsize"];
 				<div><div>Keterangan</div></div>
 			</div>
 <?php
-	$wbp	= json_decode (stripslashes($_POST["data"]), true);
+	$wbp	= json_decode (stripslashes(filter_input (INPUT_POST, "data")), true);
 	$i		= 1;
 	$c		= count ($wbp);
 
