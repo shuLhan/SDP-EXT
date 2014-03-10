@@ -321,6 +321,7 @@ function JxPahan10 ()
 		,	"tgl_awal_tahan_golongan"
 		,	"tgl_ekspirasi"
 		,	"nama_jaksa_utama"
+		,	"nama_hakim_utama"
 		]
 	});
 
@@ -614,8 +615,10 @@ function JxPahan10 ()
 					return r.get ("nm_pjbt_thn");
 				} else if (id_reg === "AII") {
 					return r.get ("nama_jaksa_utama");
-				} else if (id_reg === "AIII") {
+				} else if (id_reg === "AIII" || id_reg === "AIV" || id_reg === "AV") {
 					return r.get ("nama_hakim_utama");
+				} else {
+					return r.get ("nm_pjbt_thn");
 				}
 			}
 		}]

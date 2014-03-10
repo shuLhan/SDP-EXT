@@ -181,7 +181,7 @@ $rowsize	= $_POST["rowsize"];
 			Tembusan disampaikan kepada Yth:
 			</p>
 			<ol class="attachment">
-				<li>Kepala Kantor Wilayah Kementrian Hukum dan HAM <?php echo $print_wil1; ?> di <?php echo $print_wil2; ?></li>
+				<li>Kepala Kantor Wilayah Kementrian Hukum dan HAM <?php echo $print_wil1 ." di ". $print_wil2; ?></li>
 				<?php
 					if ($kejaksaan === "CMI") {
 						echo "<li>Yth. Ketua Pengadilan Bale Bandung Di Kabupaten Bandung </li>";

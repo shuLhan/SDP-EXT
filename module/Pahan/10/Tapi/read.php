@@ -60,6 +60,7 @@ try {
 		."	,		date_format (B.tgl_ekspirasi, '%d/%m/%Y')			as tgl_ekspirasi"
 		."	,		B.nama_jaksa_utama"
 		."	,		B.nm_pjbt_thn"
+		."	,		B.nama_hakim_utama"
 		."	from	rutanbandung_db.identitas				as A"
 		."	,		rutanbandung_db.perkara					as B"
 		."	,		rutanbandung_db.jenis_registrasi		as C"
