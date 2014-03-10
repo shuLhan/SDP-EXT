@@ -110,15 +110,18 @@ $rowsize	= $_POST["rowsize"];
 				."<div><div>". $i												."</div></div>"
 				."<div><div>". $w["nama_lengkap"]								."</div></div>"
 				."<div><div>". $w["alamat"]										."</div></div>"
-				."<div><div>". $w["tgl_srt_thn"] ."<br/>". $w["nmr_srt_thn"]	."</div></div>"
-				."<div><div>". $w["tgl_awal_tahan_golongan"]					."</div></div>"
+				."<div><div>". $w["tgl_srt_thn"] ."<br/>";
+
+		if (empty ($w["no_srt_pmt"])) {
+			echo $w["nmr_srt_thn"]	."</div></div>";
+		} else {
+			echo $w["no_srt_pmt"]	."</div></div>";
+		}
+
+		echo	"<div><div>". $w["tgl_awal_tahan_golongan"]					."</div></div>"
 				."<div><div>". $w["tgl_ekspirasi"]								."</div></div>"
 				."<div><div>". $w["nama_jaksa_utama"]							."</div></div>"
 			."</div>";
-
-		if ($c > 4 && $i % 4 === 0) {
-			echo "<div class='pagebreak'></div>";
-		}
 		$i++;
 	}
 

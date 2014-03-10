@@ -59,7 +59,12 @@ function JxPahan10 ()
 
 	,	doFilterAsalTahanan :function (cls, r, id)
 		{
-			var no_srt	= r.get ("nmr_srt_thn");
+			var no_srt = r.get ("nmr_srt_thn");
+
+			if (no_srt === "" || no_srt ===  null || no_srt === undefined) {
+				no_srt = r.get ("no_srt_pmt");
+			}
+
 			var i		= 0;
 			var asal	= "";
 			if (true === cls.rbKepolisian.getValue ()) {
@@ -288,8 +293,9 @@ function JxPahan10 ()
 	{
 		text		:"Muat ulang"
 	,	iconCls		:"refresh"
-	,	flex		:0
+	,	iconAlign	:"right"
 	,	scope		:this
+	,	flex		:0
 	,	handler		:function (b)
 		{
 			this.doLoad ();
@@ -334,9 +340,9 @@ function JxPahan10 ()
 			{
 				return	'<b>{nama_lengkap}</b><br/>'
 						+'<ul>'
-						+'<li>{nmr_reg_gol}<br/></li>'
-						+'<li>{tgl_ekspirasi}</li>'
-						+'<li>{nama_jaksa_utama}</li>'
+						+'<li>No. Reg : {nmr_reg_gol}<br/></li>'
+						+'<li>Tgl. ekspirasi : {tgl_ekspirasi}</li>'
+						+'<li>JPU : {nama_jaksa_utama}</li>'
 						+'</ul>';
 			}
 		}
@@ -448,17 +454,19 @@ function JxPahan10 ()
 
 	this.cbHanging		= Ext.create ("Ext.form.field.Checkbox",
 	{
-		id			:"hanging"
-	,	boxLabel	:"Tempatkan satu baris di bawah"
-	,	name		:"hanging"
-	,	inputValue	:true
-	,	checked		:false
+		id				:"hanging"
+	,	boxLabel		:"Tempatkan satu WBP bersama tanda tangan"
+	,	name			:"hanging"
+	,	boxLabelAlign	:"before"
+	,	inputValue		:true
+	,	checked			:false
 	});
 
 	this.bPrint		= Ext.create ("Ext.button.Button",
 	{
 		text		:"Cetak"
 	,	iconCls		:"print"
+	,	iconAlign	:"right"
 	,	scope		:this
 	,	handler		:function (b)
 		{
@@ -574,11 +582,11 @@ function JxPahan10 ()
 		,	width		:120
 		},{
 			header		:"No. Surat Penahanan"
-		,	dataIndex	:"no_srt_pmt"
 		,	width		:220
 		,	renderer	:function (v, md, r)
 			{
-				if (r.get ("no_srt_pmt") === "") {
+				var no_srt = r.get ("no_srt_pmt");
+				if (no_srt === "" || no_srt ===  null || no_srt === undefined) {
 					return r.get ("nmr_srt_thn");
 				} else {
 					return r.get ("no_srt_pmt");
@@ -681,6 +689,7 @@ function JxPahan10 ()
 					type			:"vbox"
 				,	pack			:"center"
 				,	align			:"stretch"
+				,	defaultMargins	:2
 				,	flex			:1
 				}
 			,	items	:
@@ -688,15 +697,12 @@ function JxPahan10 ()
 					this.fPrintDate
 				,	this.fWilayah1
 				,	this.fWilayah2
-				,	this.fPtd
 				,	this.fRowSize
+				,	this.fPtd
 				,	this.cbHanging
+				,	this.bPrint
 				]
-			}
-			,	"->"
-			,	"-"
-			,	this.bPrint
-			]
+			}]
 		}]
 	});
 
