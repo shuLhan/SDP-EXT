@@ -28,7 +28,7 @@ $rowsize	= $_POST["rowsize"];
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-		<title>Pahan 10</title>
+		<title>Pahan 10 AIII</title>
 		<link rel="stylesheet" href="../print.css" type="text/css" media="print, screen"/>
 	</head>
 	<body>

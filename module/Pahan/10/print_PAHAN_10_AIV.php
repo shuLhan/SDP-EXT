@@ -28,7 +28,7 @@ $rowsize	= $_POST["rowsize"];
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-		<title>Pahan 10 AII</title>
+		<title>Pahan 10 AIV</title>
 		<link rel="stylesheet" href="../print.css" type="text/css" media="print, screen"/>
 	</head>
 	<body>
@@ -55,7 +55,7 @@ $rowsize	= $_POST["rowsize"];
 			<div>:</div>
 			<div>-</div>
 			<div>Yth.</div>
-			<div>Kepala Kejaksaan Negeri
+			<div>Ketua Pengadilan Tinggi
 				<?php
 					if ($kejaksaan === "CMI") {
 						echo "Cimahi <br/>"
@@ -72,7 +72,7 @@ $rowsize	= $_POST["rowsize"];
 			<div>Pemberitahuan 10 (sepuluh) hari lagi akan habisnya masa penahanan tersangka atas nama :</div>
 			<div></div>
 			<div>
-				Di - 
+				Di -
 				<span id="kota">
 					<?php
 						if ($kejaksaan === "CMI") {
@@ -96,7 +96,7 @@ $rowsize	= $_POST["rowsize"];
 				<div><div>Tanggal <br/> dan <br/> No. Surat Penahanan</div></div>
 				<div><div>Tanggal mulai Ditahan</div></div>
 				<div><div>Tanggal akan habisnya</div></div>
-				<div><div>JPU</div></div>
+				<div><div>Keterangan</div></div>
 			</div>
 <?php
 	$wbp	= json_decode (stripslashes($_POST["data"]), true);
@@ -110,9 +110,9 @@ $rowsize	= $_POST["rowsize"];
 				."<div class='footer'>";
 		}
 		echo "<div class='wbp_data' style='height:". $rowsize ."em;'>"
-				."<div><div>". $i												."</div></div>"
-				."<div><div>". $w["nama_lengkap"]								."</div></div>"
-				."<div><div>". $w["alamat"]										."</div></div>"
+				."<div><div>". $i								."</div></div>"
+				."<div><div>". $w["nama_lengkap"]				."</div></div>"
+				."<div><div>". $w["alamat"]						."</div></div>"
 				."<div><div>". $w["tgl_srt_thn"] ."<br/>";
 
 		if (empty ($w["no_srt_pmt"])) {
@@ -121,15 +121,19 @@ $rowsize	= $_POST["rowsize"];
 			echo $w["no_srt_pmt"]	."</div></div>";
 		}
 
-		echo	"<div><div>". $w["tgl_awal_tahan_golongan"]					."</div></div>"
-				."<div><div>". $w["tgl_ekspirasi"]								."</div></div>";
-		
-		if ($w["id_reg"] === "AII") {
-			echo "<div><div>". $w["nm_pjbt_thn"]								."</div></div>";
-		} else {
-			echo "<div><div>". $w["nama_jaksa_utama"]							."</div></div>";
+		echo	"<div><div>". $w["tgl_awal_tahan_golongan"]		."</div></div>"
+				."<div><div>". $w["tgl_ekspirasi"]				."</div></div>"
+				."<div><div>";
+
+		if ($w["id_reg"] === "AI") {
+			echo $w["nm_pjbt_thn"];
+		} else if ($w["id_reg"] === "AII") {
+			echo $w["nama_jaksa_utama"];
+		} else if ($w["id_reg"] === "AIII" || $w["id_reg"] === "AIV" || $w["id_reg"] === "AV") {
+			echo $w["nama_hakim_utama"];
 		}
-		echo "</div>";
+		echo "</div></div>"
+			."</div>";
 		$i++;
 	}
 
@@ -170,7 +174,7 @@ $rowsize	= $_POST["rowsize"];
 			</div>
 			<div class="signature">
 				<div></div>
-				<div class="sig_nip">NIP. 
+				<div class="sig_nip">NIP.
 					<?php echo $print_ptd['nip']; ?>
 				</div>
 			</div>
@@ -181,23 +185,16 @@ $rowsize	= $_POST["rowsize"];
 			Tembusan disampaikan kepada Yth:
 			</p>
 			<ol class="attachment">
-				<li>Kepala Kantor Wilayah Kementrian Hukum dan HAM <?php echo $print_wil1; ?> di <?php echo $print_wil2; ?></li>
-				<?php
-					if ($kejaksaan === "CMI") {
-						echo "<li>Yth. Ketua Pengadilan Bale Bandung Di Kabupaten Bandung </li>";
-					} else {
-						if (! empty ($asal_tahanan)) {
-							if ($asal_tahanan === "T-") {
-								echo "<li>Kepala Kejaksaan Tinggi ". $print_wil1 ." di ". $print_wil2 ."</li>";
-							} else if ($asal_tahanan === "Pen") {
-								echo "<li>Ketua Pengadilan Negeri Klas I ". $print_wil2 ." di ". $print_wil2 ."</li>";
-							}
-						}
-						if ($reserse === "TPK") {
-							echo "<li>Ketua Pengadilan Tindak Pidana Korupsi ". $print_wil2 ." di ". $print_wil2 ."</li>";
-						}
-					}
-				?>
+				<li>Ketua Pengadilan Negeri Klas I
+					<?php
+						echo $print_wil2 ." di ". $print_wil2;
+					?>
+				</li>
+				<li>Kepala Kejaksaan Negeri
+					<?php
+						echo $print_wil2 ." di ". $print_wil2;
+					?>
+				</li>
 				<li>Arsip</li>
 			</ol>
 		</div>
