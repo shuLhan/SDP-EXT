@@ -139,6 +139,7 @@ function JxWBPSterek ()
 			["->"
 			,{
 				text			:"Cetak"
+			,	iconCls			:"print"
 			,	scope			:this
 			,	handler			:function (b)
 				{
@@ -168,6 +169,7 @@ function JxWBPSterek ()
 			,"->",
 			{
 				text	:"Hapus semua"
+			,	iconCls	:"delete"
 			,	scope	:this
 			,	handler	:function (b)
 				{

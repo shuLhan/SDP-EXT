@@ -1,11 +1,14 @@
 --
 -- Create group User and user 'SDP'
 --
-insert into jaring._group (name, type) values ('User', 0);
+insert into jaring._group (name, type) values ('ADPER', 0); -- id: 2
+insert into jaring._group (name, type) values ('KPR', 0); -- id: 3
 
 insert into jaring._user (name, realname, password) values ('sdp', 'SDP', 'c0a04af421d69791100e21c8d74b150c66b2fbc4a3e5a331a2412cf18ae2d16f');
+insert into jaring._user (name, realname, password) values ('kpr', 'KPR', '342af3f7c1d403ffbf20fbe531da09eb2f2f6a89d5d9a19d635bbc97742ab37a');
 
 insert into jaring._user_group (_user_id, _group_id) values (2, 2);
+insert into jaring._user_group (_user_id, _group_id) values (3, 3);
 
 INSERT INTO jaring._group_menu VALUES (2, 1, 1);
 INSERT INTO jaring._group_menu VALUES (2, 2, 0);
@@ -13,6 +16,13 @@ INSERT INTO jaring._group_menu VALUES (2, 1000, 0);
 INSERT INTO jaring._group_menu VALUES (2, 1001, 0);
 INSERT INTO jaring._group_menu VALUES (2, 1002, 0);
 INSERT INTO jaring._group_menu VALUES (2, 1003, 0);
+
+INSERT INTO jaring._group_menu VALUES (3, 1, 1);
+INSERT INTO jaring._group_menu VALUES (3, 2, 0);
+INSERT INTO jaring._group_menu VALUES (3, 1000, 0);
+INSERT INTO jaring._group_menu VALUES (3, 1001, 0);
+INSERT INTO jaring._group_menu VALUES (3, 1002, 0);
+INSERT INTO jaring._group_menu VALUES (3, 1003, 0);
 
 INSERT INTO jaring._menu VALUES (3, 0, 0, 'Telepon'				, 'telephone'			, ''					, 'Telephone'			, '');
 INSERT INTO jaring._menu VALUES (4, 3, 3, 'Manajemen Telepon'	, 'telephone_manage'	, 'Telephone_Manage'	, 'Telephone_Manage'	, '');
@@ -42,6 +52,10 @@ INSERT INTO jaring._group_menu VALUES (2, 11, 4);
 INSERT INTO jaring._group_menu VALUES (2, 12, 4);
 INSERT INTO jaring._group_menu VALUES (2, 20, 4);
 INSERT INTO jaring._group_menu VALUES (2, 21, 4);
+
+INSERT INTO jaring._group_menu VALUES (3, 10, 4);
+INSERT INTO jaring._group_menu VALUES (3, 11, 4);
+INSERT INTO jaring._group_menu VALUES (3, 12, 4);
 
 INSERT INTO jaring.wilayah (default_1, default_2, nama) VALUES (1, 0, 'Jawa Barat');
 INSERT INTO jaring.wilayah (default_1, default_2, nama) VALUES (0, 1, 'Bandung');

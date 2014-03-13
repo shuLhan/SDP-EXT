@@ -4,8 +4,8 @@ function JxLogin ()
 
 	this.logo			= Ext.create ("Ext.Component", {
 			height		:130
-		,	html		:"<img src='../../images/logo.png' />"
-		,	margin		:'10'
+		,	html		:"<img src='../../images/logo.png' style='width:280;' />"
+		,	margin		:'30 10 0 10'
 		,	width		:"100%"
 		,	style		:"vertical-align:center; text-align:center;"
 	});
@@ -85,6 +85,7 @@ function JxLogin ()
 	,	closable	:false
 	,	resizable	:false
 	,	defaultFocus:"username"
+	,	width		:320
 	,	items		:
 		[
 			this.logo
