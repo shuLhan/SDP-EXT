@@ -149,6 +149,7 @@ function JxPahan10 ()
 	,	labelAlign		:"right"
 	,	format			:"d/m/Y"
 	,	submitFormat	:"Y-m-d"
+	,	editable		:false
 	});
 
 	this.storeGol	= Ext.create ("Jx.Store",
@@ -358,7 +359,14 @@ function JxPahan10 ()
 	,	handler		:function (b)
 		{
 			var r = this.fTapi.findRecordByValue (this.fTapi.getValue ());
-			this.store.add (r);
+
+			var search = this.store.findRecord ('nomor_induk', r.get('nomor_induk'));
+
+			if (search === null) {
+				this.store.add (r);
+			} else {
+				Jx.msg.info ("Data WBP sudah ada di dalam daftar!");
+			}
 		}
 	});
 
@@ -464,6 +472,92 @@ function JxPahan10 ()
 	,	checked			:false
 	});
 
+	this.doPrint	= function (save)
+	{
+		var gol		= this.fGol.getValue ();
+		var form	= document.createElement('form');
+
+		form.target	= "PAHAN_10_"+ gol;
+		form.method	= "POST";
+		form.action	= this.dir +"/print_"+ form.target + _g_ext;
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "saveasdoc";
+		postInput.value	= save;
+		form.appendChild(postInput);
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "data";
+		postInput.value	= Ext.encode (Ext.pluck(this.store.data.items, 'data'));
+		form.appendChild(postInput);
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "kejaksaan";
+		postInput.value	= this.cgKejaksaan.getValue ().kejaksaan;
+		form.appendChild(postInput);
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "reserse";
+		postInput.value	= this.cgReserse.getValue ().reserse;
+		form.appendChild(postInput);
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "asal_tahanan";
+		postInput.value	= this.rgAsalTahanan.getValue ().asal_tahanan;
+		form.appendChild(postInput);
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "print_date";
+		postInput.value	= this.fPrintDate.getValue ();
+		form.appendChild(postInput);
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "print_wilayah_1";
+		postInput.value	= this.fWilayah1.getValue ();
+		form.appendChild(postInput);
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "print_wilayah_2";
+		postInput.value	= this.fWilayah2.getValue ();
+		form.appendChild(postInput);
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "print_ptd";
+		postInput.value	= Ext.encode (this.fPtd.findRecordByValue (this.fPtd.getValue ()).raw);
+		form.appendChild(postInput);
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "rowsize";
+		postInput.value	= this.fRowSize.getValue ();
+		form.appendChild(postInput);
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "hanging";
+		postInput.value	= this.cbHanging.getValue ();
+		form.appendChild(postInput);
+
+		document.body.appendChild(form);
+
+		var win = window.open ("", form.target);
+
+		if (win) {
+			form.submit();
+		} else {
+			Jx.msg.error ("You must allow popups for this map to work.");
+		}
+	};
+
 	this.bPrint		= Ext.create ("Ext.button.Button",
 	{
 		text		:"Cetak"
@@ -472,82 +566,19 @@ function JxPahan10 ()
 	,	scope		:this
 	,	handler		:function (b)
 		{
-			var gol		= this.fGol.getValue ();
-			var form	= document.createElement('form');
+			this.doPrint (false);
+		}
+	});
 
-			form.target	= "PAHAN_10_"+ gol;
-			form.method	= "POST";
-			form.action	= this.dir +"/print_"+ form.target + _g_ext;
-
-			var postInput	= document.createElement ('input');
-			postInput.type	= "hidden";
-			postInput.name	= "data";
-			postInput.value	= Ext.encode (Ext.pluck(this.store.data.items, 'data'));
-			form.appendChild(postInput);
-
-			var postInput	= document.createElement ('input');
-			postInput.type	= "hidden";
-			postInput.name	= "kejaksaan";
-			postInput.value	= this.cgKejaksaan.getValue ().kejaksaan;
-			form.appendChild(postInput);
-
-			var postInput	= document.createElement ('input');
-			postInput.type	= "hidden";
-			postInput.name	= "reserse";
-			postInput.value	= this.cgReserse.getValue ().reserse;
-			form.appendChild(postInput);
-
-			var postInput	= document.createElement ('input');
-			postInput.type	= "hidden";
-			postInput.name	= "asal_tahanan";
-			postInput.value	= this.rgAsalTahanan.getValue ().asal_tahanan;
-			form.appendChild(postInput);
-
-			var postInput	= document.createElement ('input');
-			postInput.type	= "hidden";
-			postInput.name	= "print_date";
-			postInput.value	= this.fPrintDate.getValue ();
-			form.appendChild(postInput);
-
-			var postInput	= document.createElement ('input');
-			postInput.type	= "hidden";
-			postInput.name	= "print_wilayah_1";
-			postInput.value	= this.fWilayah1.getValue ();
-			form.appendChild(postInput);
-
-			var postInput	= document.createElement ('input');
-			postInput.type	= "hidden";
-			postInput.name	= "print_wilayah_2";
-			postInput.value	= this.fWilayah2.getValue ();
-			form.appendChild(postInput);
-
-			var postInput	= document.createElement ('input');
-			postInput.type	= "hidden";
-			postInput.name	= "print_ptd";
-			postInput.value	= Ext.encode (this.fPtd.findRecordByValue (this.fPtd.getValue ()).raw);
-			form.appendChild(postInput);
-
-			var postInput	= document.createElement ('input');
-			postInput.type	= "hidden";
-			postInput.name	= "rowsize";
-			postInput.value	= this.fRowSize.getValue ();
-			form.appendChild(postInput);
-
-			var postInput	= document.createElement ('input');
-			postInput.type	= "hidden";
-			postInput.name	= "hanging";
-			postInput.value	= this.cbHanging.getValue ();
-			form.appendChild(postInput);
-
-			document.body.appendChild(form);
-
-			var win = window.open ("", form.target);
-
-			if (win) {
-				form.submit();
-			} else {
-				Jx.msg.error ("You must allow popups for this map to work.");
-			}
+	this.bSaveAsDoc	= Ext.create ("Ext.button.Button",
+	{
+		text		:"Simpan"
+	,	iconCls		:"save"
+	,	iconAlign	:"right"
+	,	scope		:this
+	,	handler		:function (b)
+		{
+			this.doPrint (true);
 		}
 	});
 
@@ -670,6 +701,7 @@ function JxPahan10 ()
 			},{
 				xtype	:"fieldset"
 			,	title	:"Tambah manual"
+			,	padding	:10
 			,	layout	:
 				{
 					type			:"hbox"
@@ -687,6 +719,7 @@ function JxPahan10 ()
 			,{
 				xtype	:"fieldset"
 			,	title	:"Konfigurasi Cetak"
+			,	padding	:'10'
 			,	margin	:
 				{
 					top		:10
