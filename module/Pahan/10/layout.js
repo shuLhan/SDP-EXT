@@ -321,6 +321,7 @@ function JxPahan10 ()
 		,	"no_srt_pmt"
 		,	"tgl_awal_tahan_golongan"
 		,	"tgl_ekspirasi"
+		,	"nm_pjbt_thn"
 		,	"nama_jaksa_utama"
 		,	"nama_hakim_utama"
 		]
@@ -479,12 +480,17 @@ function JxPahan10 ()
 
 		form.target	= "PAHAN_10_"+ gol;
 		form.method	= "POST";
-		form.action	= this.dir +"/print_"+ form.target + _g_ext;
+
+		if (true === save) {
+			form.action	= this.dir +"/save_PAHAN_10"+ _g_ext;
+		} else {
+			form.action	= this.dir +"/print_"+ form.target + _g_ext;
+		}
 
 		var postInput	= document.createElement ('input');
 		postInput.type	= "hidden";
-		postInput.name	= "saveasdoc";
-		postInput.value	= save;
+		postInput.name	= "golongan";
+		postInput.value	= this.fGol.getValue ();
 		form.appendChild(postInput);
 
 		var postInput	= document.createElement ('input');
@@ -742,6 +748,7 @@ function JxPahan10 ()
 				,	this.fPtd
 				,	this.cbHanging
 				,	this.bPrint
+				,	this.bSaveAsDoc
 				]
 			}]
 		}]
