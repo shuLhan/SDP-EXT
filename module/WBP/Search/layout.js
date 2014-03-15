@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2014 - Mhd Sulhan
  * Authors:
  *   - mhd.sulhan (m.shulhan@gmail.com)
@@ -19,6 +19,16 @@ function JxWBPSearch ()
 		,	"nmr_reg_gol"
 		,	"status"
 		,	"kamar"
+		,	"foto_depan"
+		,	"alamat"
+		,	"tahun_hukuman"
+		,	"bulan_hukuman"
+		,	"hari_hukuman"
+		,	"perkara"
+		,	"tgl_ekspirasi"
+		,	"tgl_sepertiga"
+		,	"tgl_setengah"
+		,	"tgl_duapertiga"
 		]
 	});
 
@@ -40,11 +50,37 @@ function JxWBPSearch ()
 		}
 	});
 
+	this.wbp_info	= Ext.create ("Ext.grid.plugin.RowExpander", {
+		pluginId	:"wbp_info"
+	,	rowBodyTpl	:
+		[
+			"<table style='font-size:12px; border:0px solid; margin:0px; padding:0px; width:100%;'>"
+		+	"<tr>"
+			+"<th style='text-align:right; width:100px;'>Perkara</th><td>:</td><td>{perkara}</td>"
+			+"<th style='text-align:right; width:100px;'>Lama Pidana</th><td>:</td><td>{tahun_hukuman} tahun {bulan_hukuman} bulan {hari_hukuman} hari</td>"
+		+	"</tr>"
+		+	"<tr>"
+			+"<th style='text-align:right; width:100px;'>1/3 Pidana</th><td>:</td><td>{tgl_sepertiga}</td>"
+			+"<th style='text-align:right; width:100px;'>2/3 Pidana</th><td>:</td><td>{tgl_duapertiga}</td>"
+		+	"</tr>"
+		+	"<tr>"
+			+"<th style='text-align:right; width:100px;'>1/2 Pidana</th><td>:</td><td>{tgl_setengah}</td>"
+			+"<th style='text-align:right; width:100px;'>Tgl. Ekspirasi</th><td>:</td><td>{tgl_ekspirasi}</td>"
+		+	"</tr>"
+		+	"<tr><th style='text-align:right; width:100px;'>Alamat</th><td>:</td><td colspan='4'>{alamat}</td></tr>"
+		+	"</table>"
+		]
+	});
+
 	this.panel			= Ext.create ("Jx.GridPaging", {
 		id				:this.id
 	,	title			:"Pencarian WBP"
 	,	store			:this.store
 	,	buttonBarList	:[]
+	,	plugins			:
+		[
+			this.wbp_info
+		]
 	,	columns			:
 		[{
 			header		:"No. Registrasi"
@@ -62,6 +98,29 @@ function JxWBPSearch ()
 			header		:"Status"
 		,	dataIndex	:"status"
 		,	width		:240
+		},{
+			header		:"Foto Depan"
+		,	xtype		:"actioncolumn"
+		,	iconCls		:"photo"
+		,	align		:"center"
+		,	handler		:function (view, rowid, colidx, item, e, r, row)
+			{
+				var photo	= Ext.create ("Ext.window.Window",
+				{
+					title		:r.get("nama_lengkap")
+				,	autoShow	:true
+				,	modal		:true
+				,	width		:600
+				,	height		:400
+				,	items		:
+					[{
+						xtype	:"image"
+					,	src		:"/sdp/"+ r.get("foto_depan")
+					,	width	:600
+					,	height	:400
+					}]
+				});
+			}
 		}]
 	});
 
