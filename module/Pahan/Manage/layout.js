@@ -496,7 +496,7 @@ function JxPahanManage ()
 	,	checked			:false
 	});
 
-	this.doPrint	= function (save)
+	this.doPrint	= function (pahan10, pahan3)
 	{
 		var gol		= this.fGol.getValue ();
 		var form	= document.createElement('form');
@@ -504,11 +504,19 @@ function JxPahanManage ()
 		form.target	= "PAHAN_10_"+ gol;
 		form.method	= "POST";
 
-		if (true === save) {
+		if (true === pahan10) {
 			form.action	= this.dir +"/save_PAHAN_10"+ _g_ext;
+		} else if (true === pahan3) {
+			form.action	= this.dir +"/save_PAHAN_03"+ _g_ext;
 		} else {
 			form.action	= this.dir +"/print_"+ form.target + _g_ext;
 		}
+
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "tanggal_ekspirasi";
+		postInput.value	= this.fDate.getValue ();
+		form.appendChild(postInput);
 
 		var postInput	= document.createElement ('input');
 		postInput.type	= "hidden";
@@ -576,6 +584,12 @@ function JxPahanManage ()
 		postInput.value	= this.cbHanging.getValue ();
 		form.appendChild(postInput);
 
+		var postInput	= document.createElement ('input');
+		postInput.type	= "hidden";
+		postInput.name	= "tanggal_pahan_10";
+		postInput.value	= this.fTglPahan10.getValue ();
+		form.appendChild(postInput);
+
 		document.body.appendChild(form);
 
 		var win = window.open ("", form.target);
@@ -595,7 +609,7 @@ function JxPahanManage ()
 	,	scope		:this
 	,	handler		:function (b)
 		{
-			this.doPrint (false);
+			this.doPrint (false, false);
 		}
 	});
 
@@ -607,7 +621,33 @@ function JxPahanManage ()
 	,	scope		:this
 	,	handler		:function (b)
 		{
-			this.doPrint (true);
+			this.doPrint (true, false);
+		}
+	});
+
+	/*
+	 * Pahan 3
+	 */
+	this.fTglPahan10	= Ext.create ("Ext.form.field.Date",
+	{
+		fieldLabel		:"Tanggal Pahan 10"
+	,	name			:"pahan_10_date"
+	,	labelWidth		:150
+	,	labelAlign		:"right"
+	,	flex			:1
+	,	format			:"d/m/Y"
+	,	value			:new Date ()
+	});
+
+	this.bPahan3Save	= Ext.create ("Ext.button.Button",
+	{
+		text		:"Simpan"
+	,	iconCls		:"save"
+	,	iconAlign	:"right"
+	,	scope		:this
+	,	handler		:function (b)
+		{
+			this.doPrint (false, true);
 		}
 	});
 
@@ -792,6 +832,29 @@ function JxPahanManage ()
 				[
 					this.bPahan10Print
 				,	this.bPahan10Save
+				]
+			},{
+			},{
+				xtype	:"fieldset"
+			,	title	:"Pahan 3"
+			,	padding	:'10'
+			,	margin	:
+				{
+					top		:10
+				,	bottom	:0
+				}
+			,	layout	:
+				{
+					type			:"vbox"
+				,	pack			:"center"
+				,	align			:"stretch"
+				,	defaultMargins	:2
+				,	flex			:1
+				}
+			,	items	:
+				[
+					this.fTglPahan10
+				,	this.bPahan3Save
 				]
 			}]
 		}]
