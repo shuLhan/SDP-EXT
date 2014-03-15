@@ -66,31 +66,51 @@ function JxPahan10 ()
 				no_srt = r.get ("no_srt_pmt");
 			}
 
+			console.log (no_srt);
+
 			var i		= 0;
 			var asal	= "";
-			if (true === cls.rbKepolisian.getValue ()) {
-				asal = cls.rbKepolisian.getSubmitValue ();
+			if (true === cls.cbKepolisian.getValue ()) {
+				asal	= cls.cbKepolisian.getSubmitValue ();
+				i		= no_srt.search (new RegExp (asal, "i"));
+				if (i !== -1) {
+					return true;
+				}
+			} else {
+				asal	= cls.cbKepolisian.getSubmitValue ();
+				i		= no_srt.search (new RegExp (asal, "i"));
+				if (i !== -1) {
+					return false;
+				}
+			}
+			if (true === cls.cbKejati.getValue ()) {
+				asal	= cls.cbKejati.getSubmitValue ();
+				i		= no_srt.search (new RegExp (asal, "i"));
+				if (i !== -1) {
+					return true;
+				}
+			} else {
+				asal	= cls.cbKejati.getSubmitValue ();
+				i		= no_srt.search (new RegExp (asal, "i"));
+				if (i !== -1) {
+					return false;
+				}
+			}
+			if (true === cls.cbPengadilan.getValue ()) {
+				asal	= cls.cbPengadilan.getSubmitValue ();
 				i = no_srt.search (new RegExp (asal, "i"));
 				if (i !== -1) {
 					return true;
 				}
-			}
-			if (true === cls.rbKejati.getValue ()) {
-				asal	= cls.rbKejati.getSubmitValue ();
-				i		= no_srt.search (new RegExp (asal, "i"));
-				if (i !== - 1) {
-					return true;
-				}
-			}
-			if (true === cls.rbPengadilan.getValue ()) {
-				asal	= cls.rbPengadilan.getSubmitValue ();
+			} else {
+				asal	= cls.cbPengadilan.getSubmitValue ();
 				i = no_srt.search (new RegExp (asal, "i"));
-				if (i !== - 1) {
-					return true;
+				if (i !== -1) {
+					return false;
 				}
 			}
 
-			return false;
+			return true;
 		}
 
 	,	doFilter	:function (cls)
@@ -237,7 +257,7 @@ function JxPahan10 ()
 		defaults	:
 		{
 			padding		:2
-		,	width		:90
+		,	width		:110
 		}
 	,	items		:
 		[
@@ -247,47 +267,50 @@ function JxPahan10 ()
 		]
 	});
 
-	this.rbKepolisian	= Ext.create ("Ext.form.field.Radio",
+	this.cbKepolisian	= Ext.create ("Ext.form.field.Checkbox",
 	{
 		id				:"asal_polisi"
 	,	name			:"asal_tahanan"
 	,	boxLabel		:"Kepolisian"
 	,	inputValue		:"SP.HAN"
+	,	uncheckedValue	:"SP.HAN"
 	,	checked			:true
 	});
 
-	this.rbKejati		= Ext.create ("Ext.form.field.Radio",
+	this.cbKejati		= Ext.create ("Ext.form.field.Checkbox",
 	{
 		id				:"asal_kejati"
 	,	name			:"asal_tahanan"
 	,	boxLabel		:"Kejati"
 	,	inputValue		:"T-"
-	,	checked			:false
+	,	uncheckedValue	:"T-"
+	,	checked			:true
 	});
 
-	this.rbPengadilan	= Ext.create ("Ext.form.field.Radio",
+	this.cbPengadilan	= Ext.create ("Ext.form.field.Checkbox",
 	{
 		id				:"asal_pengadilan"
 	,	name			:"asal_tahanan"
 	,	boxLabel		:"Pengadilan"
 	,	inputValue		:"Pen"
-	,	checked			:false
+	,	uncheckedValue	:"Pen"
+	,	checked			:true
 	});
 
-	this.rgAsalTahanan	= Ext.create ("Ext.form.RadioGroup",
+	this.cgAsalTahanan	= Ext.create ("Ext.form.CheckboxGroup",
 	{
 		allowBlank	:false
 	,	layout		:"hbox"
 	,	defaults	:
 		{
 			padding		:2
-		,	width		:90
+		,	width		:110
 		}
 	,	items		:
 		[
-			this.rbKepolisian
-		,	this.rbKejati
-		,	this.rbPengadilan
+			this.cbKepolisian
+		,	this.cbKejati
+		,	this.cbPengadilan
 		]
 	});
 
@@ -514,7 +537,7 @@ function JxPahan10 ()
 		var postInput	= document.createElement ('input');
 		postInput.type	= "hidden";
 		postInput.name	= "asal_tahanan";
-		postInput.value	= this.rgAsalTahanan.getValue ().asal_tahanan;
+		postInput.value	= this.cgAsalTahanan.getValue ().asal_tahanan;
 		form.appendChild(postInput);
 
 		var postInput	= document.createElement ('input');
@@ -699,7 +722,7 @@ function JxPahan10 ()
 				,	title	:"Tembusan / Asal Penahanan"
 				,	items	:
 					[
-						this.rgAsalTahanan
+						this.cgAsalTahanan
 					]
 				}
 				,	this.bRefresh
@@ -788,12 +811,11 @@ function JxPahan10 ()
 
 	this.fGol.on ("change", function (cb, newv, oldv, e) {
 		if (newv === "AI") {
-			this.rbKepolisian.setValue (true);
-			this.rbKepolisian.show ();
+			this.cbKepolisian.setValue (true);
+			this.cbKepolisian.show ();
 		} else {
-			this.rbKepolisian.setValue (false);
-			this.rbKejati.setValue (true);
-			this.rbKepolisian.hide ();
+			this.cbKepolisian.setValue (false);
+			this.cbKepolisian.hide ();
 		}
 		this.store.doFilter (this);
 	}
@@ -810,7 +832,7 @@ function JxPahan10 ()
 	}
 	, this);
 
-	this.rgAsalTahanan.on ("change"
+	this.cgAsalTahanan.on ("change"
 	, function (rg, newv, oldv, e)
 	{
 		this.store.doFilter (this);
