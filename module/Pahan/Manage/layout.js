@@ -66,8 +66,6 @@ function JxPahanManage ()
 				no_srt = r.get ("no_srt_pmt");
 			}
 
-			console.log (no_srt);
-
 			var i		= 0;
 			var asal	= "";
 			if (true === cls.cbKepolisian.getValue ()) {

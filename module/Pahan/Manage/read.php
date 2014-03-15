@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright 2014 - Mhd Sulhan
  * Authors:
  *   - mhd.sulhan (m.shulhan@gmail.com)
@@ -24,7 +24,10 @@ try {
 		."					select	max(E.tgl_entry)"
 		."					from	rutanbandung_db.perpanjangan_tahanan E"
 		."					where	E.id_perkara = D.id_perkara"
+		."					limit	1"
 		."				)"
+		."				order by tgl_entry desc"
+		."				limit	1"
 		."			)													as no_srt_pmt"
 		."	,		date_format (B.tgl_awal_tahan_golongan, '%d/%m/%Y')	as tgl_awal_tahan_golongan"
 		."	,		date_format (B.tgl_ekspirasi, '%d/%m/%Y')			as tgl_ekspirasi"
@@ -49,7 +52,7 @@ try {
 	$ps->execute ();
 	$rs = $ps->fetchAll (PDO::FETCH_ASSOC);
 	$ps->closeCursor ();
-	
+
 	$r["success"]	= true;
 	$r["data"]		= $rs;
 } catch (Exception $ex) {

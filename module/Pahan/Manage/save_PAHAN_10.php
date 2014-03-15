@@ -138,6 +138,6 @@ $TBS->MergeField ("ttd", $ttd);
 $TBS->MergeBlock("wbp", $wbp);
 $TBS->MergeBlock("tembusan", $tembusan);
 
-$saveas = "Pahan 03 - ". $golongan ." - ". $print_date;
+$saveas = "Pahan 10 - ". $golongan ." - ". $print_date;
 
 $TBS->Show (OPENTBS_DOWNLOAD, $saveas);
