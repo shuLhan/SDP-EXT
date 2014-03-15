@@ -832,7 +832,6 @@ function JxPahanManage ()
 				,	this.bPahan10Save
 				]
 			},{
-			},{
 				xtype	:"fieldset"
 			,	title	:"Pahan 3"
 			,	padding	:'10'
