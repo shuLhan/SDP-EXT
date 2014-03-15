@@ -33,7 +33,7 @@ INSERT INTO jaring._menu VALUES (11, 10, 3	, 'Pencarian WBP'	, 'wbp_search'	, 'W
 INSERT INTO jaring._menu VALUES (12, 10, 3	, 'Sterek'			, 'wbp_sterek'	, 'WBP_Sterek'	, 'WBP_Sterek'	, '');
 
 INSERT INTO jaring._menu VALUES (20, 0	, 0	, 'Pahan'					, 'pahan'				, ''					, 'Pahan'				, '');
-INSERT INTO jaring._menu VALUES (21, 20	, 3	, 'Pahan 10'				, 'pahan_manage'		, 'Pahan_Manage'		, 'Pahan_10'			, '');
+INSERT INTO jaring._menu VALUES (21, 20	, 3	, 'Pahan'					, 'pahan_manage'		, 'Pahan_Manage'		, 'Pahan_Manage'		, '');
 INSERT INTO jaring._menu VALUES (22, 20	, 1	, 'Referensi Wilayah'		, 'pahan_wilayah'		, 'Pahan_Wilayah'		, 'Pahan_Wilayah'		, '');
 INSERT INTO jaring._menu VALUES (23, 20	, 1	, 'Referensi Penandatangan'	, 'pahan_penandatangan'	, 'Pahan_Penandatangan'	, 'Pahan_Penandatangan'	, '');
 

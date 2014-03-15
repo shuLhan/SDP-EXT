@@ -4,9 +4,9 @@
  *   - mhd.sulhan (m.shulhan@gmail.com)
  */
 
-function JxPahan10 ()
+function JxPahanManage ()
 {
-	this.id			= "Pahan_10";
+	this.id			= "Pahan_Manage";
 	this.dir		= Jx.generateModDir (this.id);
 	this.dirGol		= Jx.generateModDir ("Pahan_Golongan");
 	this.dirTapi	= Jx.generateModDir (this.id +"_Tapi");
@@ -587,7 +587,7 @@ function JxPahan10 ()
 		}
 	};
 
-	this.bPrint		= Ext.create ("Ext.button.Button",
+	this.bPahan10Print		= Ext.create ("Ext.button.Button",
 	{
 		text		:"Cetak"
 	,	iconCls		:"print"
@@ -599,7 +599,7 @@ function JxPahan10 ()
 		}
 	});
 
-	this.bSaveAsDoc	= Ext.create ("Ext.button.Button",
+	this.bPahan10Save	= Ext.create ("Ext.button.Button",
 	{
 		text		:"Simpan"
 	,	iconCls		:"save"
@@ -770,8 +770,28 @@ function JxPahan10 ()
 				,	this.fRowSize
 				,	this.fPtd
 				,	this.cbHanging
-				,	this.bPrint
-				,	this.bSaveAsDoc
+				]
+			},{
+				xtype	:"fieldset"
+			,	title	:"Pahan 10"
+			,	padding	:'10'
+			,	margin	:
+				{
+					top		:10
+				,	bottom	:0
+				}
+			,	layout	:
+				{
+					type			:"vbox"
+				,	pack			:"center"
+				,	align			:"stretch"
+				,	defaultMargins	:2
+				,	flex			:1
+				}
+			,	items	:
+				[
+					this.bPahan10Print
+				,	this.bPahan10Save
 				]
 			}]
 		}]
@@ -854,4 +874,4 @@ function JxPahan10 ()
 	};
 }
 
-var Pahan_10 = new JxPahan10 ();
+var Pahan_Manage = new JxPahanManage ();
